@@ -1,13 +1,32 @@
+{% load static %}
 <!doctype html>
 <html lang="en">
-<head>
+  <head>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet"
           id="bootstrap-css">
+	<link href="{% static 'custom-stylesheet.css' %}" rel="stylesheet" type="text/css" id="custom-stylesheet">
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.js"></script>
     <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>SFIA Generator</title>
-            {% block content %}
-            {% endblock %}
+  {% block head %}
+  {% endblock %}
+  </head>
+  <body>
+	<title>SFIA Generator</title>
+	<nav><ul id="testID">
+		<li><a href="default.asp">Form Generator</a></li>
+		<li><a href="news.asp">Skill Search</a></li>
+		<li><a href="contact.asp">Browse/Select Skills</a></li>
+		<li style="float:right"><a href="about.asp">English &#9660</a></li>
+		<li style="float:right"><a id="browser-lang"></a></li>
+	</ul></nav>
+	<script> lang = navigator.language;
+	document.getElementById("browser-lang").innerHTML = lang;
+	</script>
+	
+  {% block content %}
+  {% endblock %}
+  </body>
+	
 </html>
