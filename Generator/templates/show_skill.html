@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load i18n %}
 {% load static %}
 {% block head %}
     <link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" media="screen">
@@ -8,22 +9,22 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-8">
-                <h1 class="mt-2">SFIA Generator</h1>
+                <h1 class="mt-2">{% trans "SFIA Generator" %}</h1>
                 <hr class="mt-0 mb-4">
-                <a href="{% url 'search_page' %}">Click here to try the skill searcher</a>
+                <a href="{% url 'search_page' %}">{% trans "Click here to try the skill searcher" %}</a>
                 <br>
                 {% if code_1 %}
-                    <a href="{% url 'list_skills_page' %}">Click here to restart selection or list skills</a>
+                    <a href="{% url 'list_skills_page' %}">{% trans "Click here to restart selection or list skills" %}</a>
                 {% else %}
-                    <a href="{% url 'list_skills_page' %}">Click here to show the list of skills or select skills</a>
+                    <a href="{% url 'list_skills_page' %}">{% trans "Click here to show the list of skills or select skills" %}</a>
                 {% endif %}
                 <br>
-                <a href="{% url 'form_page' %}">Click here to go to document generator</a>
+                <a href="{% url 'form_page' %}">{% trans "Click here to go to document generator" %}</a>
                 <br>
                 <br>
-                <h2 style="font-weight: bold;">Skills Information:</h2>
+                <h2 style="font-weight: bold;">{% trans "Skills Information:" %}</h2>
                 {% if code_2 %}
-                    <a href="{% url 'select_second' code_1 %}">Click here to select a different second skill</a>
+                    <a href="{% url 'select_second' code_1 %}">{% trans "Click here to select a different second skill" %}</a>
                     <br>
                     <form name='selection_form' method="post" data-ajax="false" action="{% url 'form_page' %}">
                         {% csrf_token %}
@@ -32,12 +33,12 @@
                         <input type="submit" value="Click Here to Pre-Populate Form">
                     </form>
                 {% else %}
-                    <a href="{% url 'select_second' skill.code %}">Click here to select this as your first skill</a>
+                    <a href="{% url 'select_second' skill.code %}">{% trans "Click here to select this as your first skill" %}</a>
                     <form name='selection_form' method="post" data-ajax="false" action="{% url 'form_page' %}">
                         {% csrf_token %}
                         <input type="hidden" id="code_1" name="code_1" value="{{ skill.code }}">
                         <input type="hidden" id="code_2" name="code_2" value="">
-                        <input type="submit" value="Click Here to Pre-Populate Form with only one skill">
+                        <input type="submit" value="{% trans 'Click Here to Pre-Populate Form with only one skill' %}">
                     </form>
                 {% endif %}
                 <h4>{{ skill.name }}</h4>

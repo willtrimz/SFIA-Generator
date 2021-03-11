@@ -7,6 +7,7 @@ from django.http import HttpResponse
 from django.shortcuts import render
 from docx.shared import RGBColor, Inches, Pt
 from nltk.tokenize import sent_tokenize, word_tokenize
+from django.utils.translation import gettext as _
 
 from .models import Skill, Level
 

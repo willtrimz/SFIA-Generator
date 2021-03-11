@@ -1,3 +1,4 @@
+{% load i18n %}
 {% load static %}
 <!doctype html>
 <html lang="en">
@@ -28,22 +29,22 @@
   <body>
     <header>
 	  <div >
-	  <title>SFIA Generator</title>
+	  <title>{% trans "SFIA Generator" %}</title>
 	  <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
-	    <a class="navbar-brand" href="#">SFIA Generator</a>
+	    <a class="navbar-brand" href="#">{% trans "SFIA Generator" %}</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
 	      <span class="navbar-toggler-icon"></span>
 		</button>
 		<div class="collapse navbar-collapse" id="navbarCollapse">
 		  <ul class="navbar-nav mr-auto">
 	        <li class="nav-item">
-			  <a class="nav-link" href="#">Form Generator</a>
+			  <a class="nav-link" href="#">{% trans "Form Generator" %}</a>
 			</li>
 	        <li class="nav-item">
-			  <a class="nav-link" href="#">Skill Search</a>
+			  <a class="nav-link" href="#">{% trans "Skill Search" %}</a>
 			</li>
 	        <li class="nav-item">
-			  <a class="nav-link" href="#">Browse/Select Skills</a>
+			  <a class="nav-link" href="#">{% trans "Browse/Select Skills" %}</a>
 			</li>
 		  </ul>
 		  <ul class="navbar-nav">
@@ -52,7 +53,7 @@
 			    English
 			  </a>
 			  <div class="dropdown-menu" aria-labelledby="langDropdown">
-			    <a class ="dropdown-item" href="#">Welsh</a>
+			    <a class ="dropdown-item" href="#">Cymraeg</a>
 			  </div>
 			</li>
 	        <li class="nav-item">
@@ -63,8 +64,8 @@
 			</li>
 			<li class="nav-item">
 			  <select>
-				<option value="1">One</option>
-				<option value="2">Two</option>
+				<option value="1">English</option>
+				<option value="2">Cymraeg</option>
 			  </select>
 			</li>
 	      </ul>

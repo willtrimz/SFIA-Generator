@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load i18n %}
 {% block head %}
     <link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" media="screen">
     <script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
@@ -8,21 +9,21 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-8">
-                <h1 class="mt-2">SFIA Generator</h1>
+                <h1 class="mt-2">{% trans "SFIA Generator" %}</h1>
                 <hr class="mt-0 mb-4">
                 {% if searched %}
                     <p style="background-color: #FFFF00">The form has been pre-populated with the search results. If no
                         suitable skills have been found, the fields have been left blank.</p>
                 {% endif %}
-                <a href="{% url 'list_skills_page' %}">Click here to show the list of skills or select skills</a>
+                <a href="{% url 'list_skills_page' %}">{% trans "Click here to show the list of skills or select skills" %}</a>
                 <br>
-                <a href="{% url 'search_page' %}">Click here to try the skill searcher</a>
+                <a href="{% url 'search_page' %}">{% trans "Click here to try the skill searcher" %}</a>
                 <br>
                 <br>
                 <form name='sfia_form' method="post" data-ajax="false" target="_blank">
                     {% csrf_token %}
-                    <h2 style="font-weight: bold;">Skill 1:</h2>
-                    <label for="sk1">Skill 1 Code (ex: PROD): </label>
+                    <h2 style="font-weight: bold;">{% trans "Skill 1:" %}</h2>
+                    <label for="sk1">{% trans "Skill 1 Code (ex: PROD):" %}</label>
                     <input id="sk1" type="text" name="sk1" value="{{ sk1_code|upper }}">
                     <label>Skill 1 Range: </label>
                     <div data-role="rangeslider">
@@ -30,9 +31,9 @@
                         <input type="range" name="sk1_max" id="sk1_max" value={{ sk1_max|default:"6" }} min="1" max="7">
                     </div>
                     <br>
-                    <h2 style="font-weight: bold;">Skill 2:</h2>
-                    <label for="sk2">Skill 2 Code (ex: TEST) (Optional): </label>
-                    <input id="sk2" type="text" name="sk2" value="{{ sk2_code|upper }}" placeholder="(Optional)">
+                    <h2 style="font-weight: bold;">{% trans "Skill 2:" %}</h2>
+                    <label for="sk2">{% trans "Skill 2 Code (ex: TEST) (Optional):" %}</label>
+                    <input id="sk2" type="text" name="sk2" value="{{ sk2_code|upper }}" placeholder="{% trans '(Optional)' %}">
                     <label>Skill 2 Range: </label>
                     <div data-role="rangeslider">
                         <input type="range" name="sk2_min" id="sk2_min" value={{ sk2_min|default:"2" }} min="1" max="7">
@@ -44,13 +45,13 @@
                         Render skills on dedicated pages
                     </div>
                     <br>
-                    <h2 style="font-weight: bold;">Form Type:</h2>
+                    <h2 style="font-weight: bold;">{% trans "Form Type:" %}</h2>
                     <select name="type" id="type">
-                        <option value="student">Student</option>
-                        <option value="employer">Employer</option>
+                        <option value="student">{% trans "Student" %}</option>
+                        <option value="employer">{% trans "Employer" %}</option>
                     </select>
                     <br>
-                    <input type="submit" value="Click Here to Download Document">
+                    <input type="submit" value="{% trans 'Click Here to Download Document' %}">
                 </form>
             </div>
         </div>
