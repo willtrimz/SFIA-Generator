@@ -38,24 +38,16 @@
 		<div class="collapse navbar-collapse" id="navbarCollapse">
 		  <ul class="navbar-nav mr-auto">
 	        <li class="nav-item">
-			  <a class="nav-link" href="#">{% trans "Form Generator" %}</a>
+			  <a class="nav-link" href="{% url 'form_page' %}">{% trans "Form Generator" %}</a>
 			</li>
 	        <li class="nav-item">
-			  <a class="nav-link" href="#">{% trans "Skill Search" %}</a>
+			  <a class="nav-link" href="{% url 'search_page' %}">{% trans "Skill Search" %}</a>
 			</li>
 	        <li class="nav-item">
-			  <a class="nav-link" href="#">{% trans "Browse/Select Skills" %}</a>
+			  <a class="nav-link" href="{% url 'list_skills_page' %}">{% trans "Browse/Select Skills" %}</a>
 			</li>
 		  </ul>
 		  <ul class="navbar-nav">
-	        <!--<li class="nav-item dropdown my-2 my-md-0">
-			  <a class="nav-link dropdown-toggle" id="langDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#">
-			    English
-			  </a>
-			  <div class="dropdown-menu" aria-labelledby="langDropdown">
-			    <a class ="dropdown-item" href="#">Cymraeg</a>
-			  </div>
-			</li>-->
 			<li class="nav-item">
 			  <a class="nav-link" href="#">Staff Login</a>
 			</li>
