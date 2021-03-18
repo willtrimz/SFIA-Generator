@@ -1,5 +1,6 @@
 # Create your views here.
 import docx
+import json
 import gensim
 import numpy as np
 from django.conf import settings
@@ -274,6 +275,9 @@ def generate(request):
         # Adding the first table
         add_skill_table(sk1, [sk1_start, sk1_stop], doc)
         filename = '%s.docx' % (sk1.upper())
+    
+    # Appending core competencies to document
+    add_core_competencies(type, doc)
 
     # Saving to output
     response = HttpResponse(content_type='application/vnd.openxmlformats-officedocument.wordprocessingml.document')
@@ -344,6 +348,108 @@ def add_skill_table(sk_code, sk_range, doc):
         t.cell(0, cell_count).width = Inches(cell_width)
         t.cell(1, cell_count).width = Inches(cell_width)
         cell_count += 1
+
+# Add Core Competencies form to the document
+def add_core_competencies(type, doc):
+    # Add a new page for the core competencies
+    add_page_break(doc)
+    # Add the heading for the core competencies section of the form
+    h = doc.add_paragraph('')
+    h.alignment = docx.enum.text.WD_ALIGN_PARAGRAPH.CENTER
+    with open(settings.BASE_DIR + "/uploads/core_competencies.json", "r") as read_file:
+        data = json.load(read_file)
+    heading = h.add_run(data['heading'])
+    heading.bold = True
+    heading.font.size = Pt(14)
+    heading.font.name = 'Calibri'
+    
+    # Add instruction text for employer/student
+    p = doc.add_paragraph('')
+    if type == 'employer':
+        message = p.add_run(data['employer_message'])
+    else:
+        message = p.add_run(data['student_message'])
+    message.font_size = Pt(10)
+    message.font_name = 'Calibri'
+    message.italic = True
+
+    # Table 1 Generation
+    number_of_levels = len(data['competencies'][1]['levels']) # Number of levels the competencies have
+    t = doc.add_table(len(data['competencies'])+1, number_of_levels+1)  # Create Table
+    t.autofit = True
+    t.style = 'Table Grid'
+    t.alignment = docx.enum.table.WD_TABLE_ALIGNMENT.CENTER
+
+    # Populating top row of table 1
+    for col_number in range(1, number_of_levels+1):
+        top_cell = t.cell(0, col_number).paragraphs[0].add_run('Level ' + str(col_number))
+        top_cell.bold = True
+        top_cell.font.name = 'Calibri'
+    top_left_cell = t.cell(0,0).paragraphs[0].add_run('Competency')
+    top_left_cell.bold = True
+    top_left_cell.font.name = 'Calibri'
+
+    row_number = 1
+    for competency in data['competencies']:
+        # Populating leftmost column of table 1
+        competency_title_cell = t.cell(row_number, 0).paragraphs[0].add_run(competency['competency'])
+        competency_title_cell.bold = True
+        competency_title_cell.font.name = 'Calibri'
+        # Finding total length of descriptions for width calculations later
+        total_description_length = 0
+        for level in competency['levels']:
+            total_description_length += len(level["description"])
+
+        # Populating cells
+        col_number = 1
+        for level in competency['levels']:
+            level_description_cell = t.cell(row_number, col_number).paragraphs[0].add_run(level['description'])
+            level_description_cell.font.name = 'Calibri'
+            level_description_cell.font.size = Pt(10)
+            cell_width = 1.25 / len(competency['levels']) + 10.75 * len(level['description']) / total_description_length
+            t.cell(0, col_number).width = Inches(cell_width)
+            t.cell(1, col_number).width = Inches(cell_width)
+            col_number += 1
+        row_number += 1
+    
+    # Add business skills description and table
+    p = doc.add_paragraph('')
+    business_skills_heading = p.add_run()
+    business_skills_heading.add_break()
+    business_skills_heading.add_text('Business Skills - these include the following key skills:')
+    business_skills_heading.bold = True
+    business_skills_heading.font.name = 'Calibri'
+    business_skills = data['business_skills']
+    for key_skill in business_skills['skills_included']:
+        p = doc.add_paragraph(key_skill, style = 'List Bullet')
+
+    # Table 2 Generation
+    levels = data['business_skills']['levels']
+    number_of_levels = len(levels) # Number of levels the in business skills competency
+    t = doc.add_table(2, number_of_levels)  # Create Table
+    t.autofit = True
+    t.style = 'Table Grid'
+    t.alignment = docx.enum.table.WD_TABLE_ALIGNMENT.CENTER
+
+    total_description_length = 0
+    for level in levels:
+        total_description_length += len(level["description"])
+
+    col_number = 0
+    for level in levels:
+        top_cell = t.cell(0, col_number).paragraphs[0].add_run('Level ' + str(level['level']))
+        top_cell.bold = True
+        top_cell.font.name = 'Calibri'
+        bottom_cell = t.cell(1, col_number).paragraphs[0].add_run(level['description'])
+        bottom_cell.font.name = 'Calibri'
+        bottom_cell.font.size = Pt(10)
+        cell_width = 1.25 / len(levels) + 10.75 * len(level['description']) / total_description_length
+        t.cell(0, col_number).width = Inches(cell_width)
+        t.cell(1, col_number).width = Inches(cell_width)
+        col_number += 1
+
+    
+     
 
 
 # Generate description for the skill
