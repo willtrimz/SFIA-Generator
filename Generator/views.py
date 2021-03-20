@@ -379,7 +379,6 @@ def add_core_competencies(type, doc):
     t.autofit = True
     t.style = 'Table Grid'
     t.alignment = docx.enum.table.WD_TABLE_ALIGNMENT.CENTER
-
     # Populating top row of table 1
     for col_number in range(1, number_of_levels+1):
         top_cell = t.cell(0, col_number).paragraphs[0].add_run('Level ' + str(col_number))
@@ -388,7 +387,7 @@ def add_core_competencies(type, doc):
     top_left_cell = t.cell(0,0).paragraphs[0].add_run('Competency')
     top_left_cell.bold = True
     top_left_cell.font.name = 'Calibri'
-
+    # Populating the rest of the table
     row_number = 1
     for competency in data['competencies']:
         # Populating leftmost column of table 1
@@ -411,7 +410,8 @@ def add_core_competencies(type, doc):
             t.cell(1, col_number).width = Inches(cell_width)
             col_number += 1
         row_number += 1
-    
+    # Adding a page break so second table will appear on next page
+    add_page_break(doc)
     # Add business skills description and table
     p = doc.add_paragraph('')
     business_skills_heading = p.add_run()
@@ -422,7 +422,6 @@ def add_core_competencies(type, doc):
     business_skills = data['business_skills']
     for key_skill in business_skills['skills_included']:
         p = doc.add_paragraph(key_skill, style = 'List Bullet')
-
     # Table 2 Generation
     levels = data['business_skills']['levels']
     number_of_levels = len(levels) # Number of levels the in business skills competency
@@ -434,7 +433,6 @@ def add_core_competencies(type, doc):
     total_description_length = 0
     for level in levels:
         total_description_length += len(level["description"])
-
     col_number = 0
     for level in levels:
         top_cell = t.cell(0, col_number).paragraphs[0].add_run('Level ' + str(level['level']))
