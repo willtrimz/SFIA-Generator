@@ -9,9 +9,14 @@ from django.shortcuts import render
 from docx.shared import RGBColor, Inches, Pt
 from nltk.tokenize import sent_tokenize, word_tokenize
 from django.utils.translation import gettext as _
+from django.utils.translation import get_language
+from dynamic_preferences.registries import global_preferences_registry
+from django.contrib import messages
+from django.forms import ValidationError
 
-from .models import Skill, Level
+from .models import Skill, Level, cy_Skill, cy_Level
 
+global_preferences = global_preferences_registry.manager()
 
 # View for home page
 def index(request):
@@ -51,7 +56,6 @@ def index(request):
         context = {'searched': False}
         return render(request, 'form.html', context)
 
-
 # View for search page
 def search_page(request):
     # Returns the search page
@@ -72,11 +76,38 @@ def select_second(request, code_1):  # Same as list_skills but addional context 
                                                 "set_3": set_3})  # Renders and returns the page of the list of skills
 
 
+# View to access the language preferences
+def language_preferences_page(request):
+    if request.method == 'POST':
+        try:
+            if 'use_welsh_data' in request.POST:
+                global_preferences['Enable_Welsh_SFIA_Skills'] = True
+            else:
+                global_preferences['Enable_Welsh_SFIA_Skills'] = False
+            messages.success(request, 'Changes saved!')
+        except ValidationError as VE:
+            messages.error(request, 'Error:' + str(VE))
+
+    # Returns the language preferences page
+    return render(request, 'language_preferences.html', {})
+
+# Check if the user is using the Welsh site and if the Welsh translation of SFIA is available
+# So that we can retrieve skills in the appropriate language
+def welsh_available():
+    if get_language() == 'cy' and global_preferences['Enable_Welsh_SFIA_Skills'] == True:
+        return True
+    else:
+        return False
+
 # View details of skill
 def show_skill(request, code):
     try:
-        skill_object = Skill.objects.get(code=code.lower())  # Get the skill from the code
-        levels = Level.objects.filter(skill=skill_object)  # Get the levels using the skill_object as the key
+        if welsh_available():
+            skill_object = cy_Skill.objects.get(code=code.lower())  # Get the skill (Welsh) from the code
+            levels = cy_Level.objects.filter(skill=skill_object)  # Get the levels using the skill_object as the key
+        else:
+            skill_object = Skill.objects.get(code=code.lower()) # Get the skill (English) from the code
+            levels = Level.objects.filter(skill=skill_object)
         context = {
             'skill': skill_object,
             'levels': levels
@@ -89,8 +120,12 @@ def show_skill(request, code):
 # View details of second selected skill
 def view_second(request, code_1, code_2):
     try:
-        skill_object = Skill.objects.get(code=code_2.lower())  # Get the skill from the code
-        levels = Level.objects.filter(skill=skill_object)  # Get the levels using the skill_object as the key
+        if welsh_available():
+            skill_object = cy_Skill.objects.get(code=code_2.lower())  # Get the skill from the code
+            levels = cy_Level.objects.filter(skill=skill_object)  # Get the levels using the skill_object as the key
+        else:
+            skill_object = Skill.objects.get(code=code_2.lower())
+            levels = Level.objects.filter(skill=skill_object)
         context = {
             'skill': skill_object,
             'levels': levels,
@@ -106,7 +141,10 @@ def get_skill_sets():
     set_1 = []  # Column 1
     set_2 = []  # Column 2
     set_3 = []  # Column 3
-    skill_objects = Skill.objects.all().order_by('code')  # Get all the skills and order them by the skill code
+    if welsh_available():
+        skill_objects = cy_Skill.objects.all().order_by('code') # Get all the skills and order them by the skill code
+    else:
+        skill_objects = Skill.objects.all().order_by('code')
     length = len(skill_objects)  # Find number of skills
     for num, skill in enumerate(skill_objects, start=0):
         if num < length / 3:  # Checks if the skill is in the first third of the list
@@ -204,12 +242,18 @@ def is_valid(request):
         if sk1_start >= 1 and sk2_start >= 1 and sk1_stop <= 7 and sk2_stop <= 7 and (
                 type == 'student' or type == 'employer'):
             try:  # Try to retrieve the skill object
-                skill_object = Skill.objects.get(code=sk1.lower())
+                if welsh_available():
+                    skill_object = cy_Skill.objects.get(code=sk1.lower())
+                else:
+                    skill_object = Skill.objects.get(code=sk1.lower())
             except:
                 return False
             if sk2 != '':  # If the second skill isn't blank
                 try:  # Try to retrieve the second skill object
-                    skill_object = Skill.objects.get(code=sk2.lower())
+                    if welsh_available():
+                        skill_object = cy_Skill.objects.get(code=sk2.lower())
+                    else:
+                        skill_object = Skill.objects.get(code=sk2.lower())
                 except:
                     return False
             return True
@@ -288,7 +332,12 @@ def generate(request):
 
 # Get skill information
 def get_skill(sk_code):
-    skill_object = Skill.objects.get(code=sk_code.lower())
+    if welsh_available():
+        skill_object = cy_Skill.objects.get(code=sk_code.lower())
+        level_model = cy_Level
+    else:
+        skill_object = Skill.objects.get(code=sk_code.lower())
+        level_model = Level
     # Put skill information into dictionary
     skill = {
         'name': skill_object.name,
@@ -297,7 +346,8 @@ def get_skill(sk_code):
         'levels': []
     }
     # Put each level's information into a dictionary and append to levels list in the skills dictionary
-    for level in Level.objects.filter(skill=skill_object):
+
+    for level in cy_Level.objects.filter(skill=skill_object):
         skill['levels'].append({
             'level': level.level,
             'description': level.description,

@@ -23,4 +23,5 @@ urlpatterns = [
     path('skill/<slug:code>/', views.show_skill, name='show_skill_page'),
     path('select/<slug:code_1>/', views.select_second, name='select_second'),
     path('select/<slug:code_1>/<slug:code_2>/', views.view_second, name='view_second'),
+    path('language_preferences/', views.language_preferences_page, name='language_preferences_page')
 ]

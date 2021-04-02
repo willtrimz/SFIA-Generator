@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block content %}
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-8">
+                <h1 class="mt-2">{% trans "SFIA Generator" %}</h1>
+                <form name='lang_preferences_form' method="post" data-ajax="false">
+                    {% csrf_token %}
+                    {% include 'messages.html' %}
+                    <input id="cb" type="checkbox" name='use_welsh_data' {% if global_preferences.Enable_Welsh_SFIA_Skills %} checked {% endif %}>
+                    <label for="use_welsh_data"> {% trans 'Use Welsh translations of SFIA framework for the Welsh site' %} </label><br>
+                    <br>
+                    <input type="submit" value="{% trans 'Save' %}">
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}
