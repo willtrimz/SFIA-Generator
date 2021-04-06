@@ -14,7 +14,7 @@ from dynamic_preferences.registries import global_preferences_registry
 from django.contrib import messages
 from django.forms import ValidationError
 
-from .models import Skill, Level, cy_Skill, cy_Level
+from .models import en_Skill, en_Level, cy_Skill, cy_Level
 
 global_preferences = global_preferences_registry.manager()
 
@@ -108,8 +108,8 @@ def show_skill(request, code):
             skill_object = cy_Skill.objects.get(code=code.lower())  # Get the skill (Welsh) from the code
             levels = cy_Level.objects.filter(skill=skill_object)  # Get the levels using the skill_object as the key
         else:
-            skill_object = Skill.objects.get(code=code.lower()) # Get the skill (English) from the code
-            levels = Level.objects.filter(skill=skill_object)
+            skill_object = en_Skill.objects.get(code=code.lower()) # Get the skill (English) from the code
+            levels = en_Level.objects.filter(skill=skill_object)
         context = {
             'skill': skill_object,
             'levels': levels
@@ -126,8 +126,8 @@ def view_second(request, code_1, code_2):
             skill_object = cy_Skill.objects.get(code=code_2.lower())  # Get the skill from the code
             levels = cy_Level.objects.filter(skill=skill_object)  # Get the levels using the skill_object as the key
         else:
-            skill_object = Skill.objects.get(code=code_2.lower())
-            levels = Level.objects.filter(skill=skill_object)
+            skill_object = en_Skill.objects.get(code=code_2.lower())
+            levels = en_Level.objects.filter(skill=skill_object)
         context = {
             'skill': skill_object,
             'levels': levels,
@@ -146,7 +146,7 @@ def get_skill_sets():
     if welsh_available():
         skill_objects = cy_Skill.objects.all().order_by('code') # Get all the skills and order them by the skill code
     else:
-        skill_objects = Skill.objects.all().order_by('code')
+        skill_objects = en_Skill.objects.all().order_by('code')
     length = len(skill_objects)  # Find number of skills
     for num, skill in enumerate(skill_objects, start=0):
         if num < length / 3:  # Checks if the skill is in the first third of the list
@@ -174,7 +174,7 @@ def search_similarities(request):
     sims = gensim.similarities.Similarity(settings.BASE_DIR + '/Generator/gensim', tf_idf[corpus],
                                           num_features=len(dictionary))
     # Checking for similarities with level descriptions
-    for level in Level.objects.all():
+    for level in en_Level.objects.all():
         skill_sim_total = 0
 
         for sentence in sent_tokenize(level.description):
@@ -194,7 +194,7 @@ def search_similarities(request):
             similarities[level.skill.code] = skill_sim
     # Checking for similarities with skill descriptions
     # Same procedure as with for levels
-    for skill in Skill.objects.all():
+    for skill in en_Skill.objects.all():
         skill_sim_total = 0
 
         for sentence in sent_tokenize(skill.description):
@@ -247,7 +247,7 @@ def is_valid(request):
                 if welsh_available():
                     skill_object = cy_Skill.objects.get(code=sk1.lower())
                 else:
-                    skill_object = Skill.objects.get(code=sk1.lower())
+                    skill_object = en_Skill.objects.get(code=sk1.lower())
             except:
                 return False
             if sk2 != '':  # If the second skill isn't blank
@@ -255,7 +255,7 @@ def is_valid(request):
                     if welsh_available():
                         skill_object = cy_Skill.objects.get(code=sk2.lower())
                     else:
-                        skill_object = Skill.objects.get(code=sk2.lower())
+                        skill_object = en_Skill.objects.get(code=sk2.lower())
                 except:
                     return False
             return True
@@ -338,8 +338,8 @@ def get_skill(sk_code):
         skill_object = cy_Skill.objects.get(code=sk_code.lower())
         level_model = cy_Level
     else:
-        skill_object = Skill.objects.get(code=sk_code.lower())
-        level_model = Level
+        skill_object = en_Skill.objects.get(code=sk_code.lower())
+        level_model = en_Level
     # Put skill information into dictionary
     skill = {
         'name': skill_object.name,
@@ -499,9 +499,6 @@ def add_core_competencies(type, doc):
         col_number += 1
 
     
-     
-
-
 # Generate description for the skill
 def add_skill_info(sk_code, doc):
     sk = get_skill(sk_code)

@@ -4,7 +4,7 @@ from django.utils.text import slugify
 from django.db import models
 from ckeditor.widgets import CKEditorWidget
 from dynamic_preferences.registries import global_preferences_registry
-from .models import Skill, Level, SkillJSON, cy_Skill, cy_Level, cy_SkillJSON
+from .models import en_Skill, en_Level, en_SkillJSON, cy_Skill, cy_Level, cy_SkillJSON
 
 global_preferences = global_preferences_registry.manager()
 # Register your models here.
@@ -18,8 +18,8 @@ def processJSON(modeladmin, request, queryset):
         # Checking the language code at the top of the JSON file
         if data['language'] == 'en':
             # Selecting the English database models to be uploaded to
-            skill_model = Skill
-            level_model = Level
+            skill_model = en_Skill
+            level_model = en_Level
             # Selecting Welsh skill model to be checked against for non-matching skills
             converse_skill_model = cy_Skill
         elif data['language'] == 'cy':
@@ -27,7 +27,7 @@ def processJSON(modeladmin, request, queryset):
             skill_model = cy_Skill
             level_model = cy_Level
             # Selecting English skill model to be checked against for non-matching skills
-            converse_skill_model = Skill
+            converse_skill_model = en_Skill
         for skill in data['skills']:
             page_attrs = {
                 'name': skill['name'],
@@ -54,7 +54,7 @@ processJSON.short_description = 'Upload to Models'
 
 # English model admins
 class en_LevelInline(admin.TabularInline):
-    model = Level
+    model = en_Level
     formfield_overrides = {
         models.TextField : {'widget': CKEditorWidget(config_name='advanced_setting')},
     }
@@ -62,7 +62,7 @@ class en_LevelInline(admin.TabularInline):
     extra = 0
 
 class en_SkillAdmin(admin.ModelAdmin):
-    model = Skill
+    model = en_Skill
     list_display = ['name','code',]
     search_fields = ['name','code']
     inlines = [en_LevelInline]
@@ -75,11 +75,11 @@ class en_SkillAdmin(admin.ModelAdmin):
         except:
             if global_preferences['Enable_Welsh_SFIA_Skills'] == True:
                 global_preferences['Enable_Welsh_SFIA_Skills'] = False
-                messages.add_message(request, messages.WARNING, "This skill is does not have a Welsh translation in the database. Therefore the ""Enable_Welsh_SFIA_Skills"" preference has been disabled.")
+                messages.add_message(request, messages.WARNING, "A skill with this code does not exist in the Welsh database table. Therefore the ""Enable_Welsh_SFIA_Skills"" preference has been disabled.")
         super().save_model(request, obj, form, change)
 
 class en_SkillJSONAdmin(admin.ModelAdmin):
-    model = SkillJSON
+    model = en_SkillJSON
     actions = [processJSON]
 
 # Welsh model admins
@@ -99,13 +99,21 @@ class cy_SkillAdmin(admin.ModelAdmin):
     formfield_overrides = {
         models.TextField: {'widget': CKEditorWidget(config_name='advanced_setting')},
     }
+    def save_model(self, request, obj, form, change):
+        try:
+            en_Skill.objects.get(code=obj.code)
+        except:
+            if global_preferences['Enable_Welsh_SFIA_Skills'] == True:
+                global_preferences['Enable_Welsh_SFIA_Skills'] = False
+                messages.add_message(request, messages.WARNING, "A skill with this code does not exist in the English database table. Therefore the ""Enable_Welsh_SFIA_Skills"" preference has been disabled.")
+        super().save_model(request, obj, form, change)
 
 class cy_SkillJSONAdmin(admin.ModelAdmin):
     model = cy_SkillJSON
     actions = [processJSON]
 
-admin.site.register(Skill, en_SkillAdmin)
-admin.site.register(SkillJSON, en_SkillJSONAdmin)
+admin.site.register(en_Skill, en_SkillAdmin)
+admin.site.register(en_SkillJSON, en_SkillJSONAdmin)
 
 admin.site.register(cy_Skill, cy_SkillAdmin)
 admin.site.register(cy_SkillJSON, cy_SkillJSONAdmin)
