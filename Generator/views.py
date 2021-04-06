@@ -84,9 +84,11 @@ def language_preferences_page(request):
                 global_preferences['Enable_Welsh_SFIA_Skills'] = True
             else:
                 global_preferences['Enable_Welsh_SFIA_Skills'] = False
-            messages.success(request, 'Changes saved!')
+            messages.success(request, _('Changes saved!'))
         except ValidationError as VE:
-            messages.error(request, 'Error:' + str(VE))
+            # If an error is raised by the dynamic preferences registry, deliver error message to user.
+            # The error list is sliced to remove the square braces
+            messages.error(request, _('Error: ') + str(VE)[2:-2])
 
     # Returns the language preferences page
     return render(request, 'language_preferences.html', {})

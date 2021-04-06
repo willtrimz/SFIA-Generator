@@ -15,13 +15,12 @@ class EnableWelshSFIA(BooleanPreference):
                 for skill in Skill.objects.all():
                     cy_Skill.objects.get(code=skill.code)
             except:
-                raise ValidationError('There are skills in the database that exist in English but not Welsh.')
+                raise ValidationError('There are skills in the database that exist in English but not Welsh - skill sets must be identical, therefore this preference cannot be enabled.')
             try:
                 for skill in cy_Skill.objects.all():
                     Skill.objects.get(code=skill.code)
             except:
-                raise ValidationError('There are skills in the database that exist in Welsh but not English.')
-
+                raise ValidationError('There are skills in the database that exist in Welsh but not English - skill sets must be identical, therefore this preference cannot be enabled.')
 
 
 @global_preferences_registry.register
