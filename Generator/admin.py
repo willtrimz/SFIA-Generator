@@ -4,7 +4,7 @@ from django.utils.text import slugify
 from django.db import models
 from ckeditor.widgets import CKEditorWidget
 from dynamic_preferences.registries import global_preferences_registry
-from .models import en_Skill, en_Level, en_SkillJSON, cy_Skill, cy_Level, cy_SkillJSON
+from .models import en_Skill, en_Level, en_SkillJSON, cy_Skill, cy_Level, cy_SkillJSON, docx_templates
 
 global_preferences = global_preferences_registry.manager()
 # Register your models here.
@@ -112,8 +112,24 @@ class cy_SkillJSONAdmin(admin.ModelAdmin):
     model = cy_SkillJSON
     actions = [processJSON]
 
+class docx_templatesAdmin(admin.ModelAdmin):
+    model = docx_templates
+    def save_model(self, request, obj, form, change):
+        form_types = ['employer_template_en.docx', 'student_template_en.docx', 'employer_template_cy.docx', 'student_template_cy.docx']
+        filename = obj.__str__()
+        if filename not in form_types:
+            messages.add_message(request, messages.WARNING, "{fileName} is not one of the supported form types. Please attached a file which conforms to one of the following names: ".format(fileName=filename) + str(form_types))
+            messages.set_level(request, messages.ERROR)
+        else:
+            if docx_templates.objects.filter(file__endswith=filename).exists():
+                docx_templates.objects.filter(file__endswith=filename).delete()
+            super().save_model(request, obj, form, change)
+
+
 admin.site.register(en_Skill, en_SkillAdmin)
 admin.site.register(en_SkillJSON, en_SkillJSONAdmin)
 
 admin.site.register(cy_Skill, cy_SkillAdmin)
 admin.site.register(cy_SkillJSON, cy_SkillJSONAdmin)
+
+admin.site.register(docx_templates, docx_templatesAdmin)

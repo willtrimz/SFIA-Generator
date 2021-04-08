@@ -1,4 +1,5 @@
 from django.db import models
+from django.core.files.storage import FileSystemStorage
 
 # Create your models here.
 
@@ -49,3 +50,17 @@ class cy_SkillJSON(models.Model):
     class Meta:
         verbose_name = 'SFIA JSON file (Cymraeg)'
         verbose_name_plural = 'SFIA JSON files (Cymraeg)'
+
+
+class OverwriteStorage(FileSystemStorage):
+    def get_available_name(self, name, max_length=None):
+        self.delete(name)
+        return super().get_available_name(name, max_length)
+
+class docx_templates(models.Model):
+    file = models.FileField(upload_to='Generator/DocxTemplates/', storage=OverwriteStorage())
+    def __str__(self):
+        return self.file.name.__str__()
+    class Meta:
+        verbose_name = 'Docx Form Template'
+        verbose_name_plural = 'Docx Form Templates'

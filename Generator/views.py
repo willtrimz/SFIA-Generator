@@ -89,9 +89,9 @@ def language_preferences_page(request):
             # If an error is raised by the dynamic preferences registry, deliver error message to user.
             # The error list is sliced to remove the square braces
             messages.error(request, _('Error: ') + str(VE)[2:-2])
-
     # Returns the language preferences page
     return render(request, 'language_preferences.html', {})
+
 
 # Check if the user is using the Welsh site and if the Welsh translation of SFIA is available
 # So that we can retrieve skills in the appropriate language
@@ -280,12 +280,13 @@ def generate(request):
         dedicate = True
 
     # Generating the document
-    if type == 'employer':
-        doc = docx.Document(settings.BASE_DIR + '/Generator/DocxTemplates/employer_template.docx')
+    if welsh_available():
+        doc = docx.Document(settings.BASE_DIR + '/Generator/DocxTemplates/{formType}_template_cy.docx'.format(formType = type))
     else:
-        doc = docx.Document(settings.BASE_DIR + '/Generator/DocxTemplates/student_template.docx')
+        doc = docx.Document(settings.BASE_DIR + '/Generator/DocxTemplates/{formType}_template_en.docx'.format(formType = type))
+
     if dedicate:
-        # Addidng a page break
+        # Adding a page break
         add_page_break(doc)
     if sk2 != '':
         sk1_concat = ''.join([level['description'] for level in get_levels(sk1, [sk1_start, sk1_stop])])
@@ -349,7 +350,7 @@ def get_skill(sk_code):
     }
     # Put each level's information into a dictionary and append to levels list in the skills dictionary
 
-    for level in cy_Level.objects.filter(skill=skill_object):
+    for level in level_model.objects.filter(skill=skill_object):
         skill['levels'].append({
             'level': level.level,
             'description': level.description,
