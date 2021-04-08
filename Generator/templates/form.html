@@ -9,17 +9,9 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-8">
-                <h1 class="mt-2">{% trans "SFIA Generator" %}</h1>
-                <hr class="mt-0 mb-4">
-                {% if searched %}
-                    <p style="background-color: #FFFF00">The form has been pre-populated with the search results. If no
-                        suitable skills have been found, the fields have been left blank.</p>
-                {% endif %}
-                <a href="{% url 'list_skills_page' %}">{% trans "Click here to show the list of skills or select skills" %}</a>
-                <br>
-                <a href="{% url 'search_page' %}">{% trans "Click here to try the skill searcher" %}</a>
                 <br>
                 <br>
+                {% include 'messages.html' %}
                 <form name='sfia_form' method="post" data-ajax="false" target="_blank">
                     {% csrf_token %}
                     <h2 style="font-weight: bold;">{% trans "Skill 1:" %}</h2>

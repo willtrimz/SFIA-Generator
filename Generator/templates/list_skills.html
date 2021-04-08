@@ -10,16 +10,11 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-8">
-                <h1 class="mt-2">{% trans "SFIA Generator" %}</h1>
-                <hr class="mt-0 mb-4">
-                <a href="{% url 'search_page' %}">{% trans "Click here to try the skill searcher" %}</a>
-                <br>
-                <a href="{% url 'form_page' %}">{% trans "Click here to go to document generator" %}</a>
                 <br>
                 <br>
                 <h2 style="font-weight: bold;">Skills Available:</h2>
+                {% include 'messages.html' %}
                 {% if code_1 %}
-                    <p style="background-color: #FFFF00">{{ code_1|upper }} {% trans "has been selected as the first skill. Please select the second" %}</p>
                     <a href="{% url 'list_skills_page' %}">{% trans "Click here to select a different first skill" %}</a>
                     <br>
                     <br>

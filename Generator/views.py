@@ -41,6 +41,7 @@ def index(request):
 
         # If data was posted from the search function form.
         elif 'input' in request.POST:
+            messages.info(request, _("The form has been pre-populated with the search results. If no suitable skills have been found, the fields have been left blank."))
             return search_similarities(request)
 
         # If data was posted from the skill selector
@@ -72,6 +73,7 @@ def list_skills(request):
 # View to list skills for second skill selection
 def select_second(request, code_1):  # Same as list_skills but addional context is added to be rendered
     set_1, set_2, set_3 = get_skill_sets()  # Gets skills in 3 evenly split sets
+    messages.success(request, code_1.upper() + _(" has been selected as the first skill. Please select the second."))
     return render(request, 'list_skills.html', {"code_1": code_1, "set_1": set_1, "set_2": set_2,
                                                 "set_3": set_3})  # Renders and returns the page of the list of skills
 

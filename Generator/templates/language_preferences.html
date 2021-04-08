@@ -6,7 +6,9 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-8">
-                <h1 class="mt-2">{% trans "SFIA Generator" %}</h1>
+                <br>
+                <h2 class="mt-2">Language Preferences</h2>
+                <hr class="mt-0 mb-4">
                 <form name='lang_preferences_form' method="post" data-ajax="false">
                     {% csrf_token %}
                     {% include 'messages.html' %}
