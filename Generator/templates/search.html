@@ -16,7 +16,7 @@
                     <h2 style="font-weight: bold;">{% trans "Skill Search:" %}</h2>
                     <label for="input">{% trans "Type/paste a paragraph about the skills you have/want to refine or paste in your resume:" %} </label>
                     {% include 'messages.html' %}
-                    <textarea class="input" name="input" id="input"></textarea>
+                    <textarea class="input" name="input" id="input" required oninvalid="this.setCustomValidity('{% trans "Please fill in this form field."%}')" oninput="setCustomValidity('')"></textarea>
                     <input type="submit" value="{% trans 'Click here to search for suitable skill' %}">
                 </form>
             </div>
