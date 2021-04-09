@@ -77,6 +77,16 @@ class en_SkillAdmin(admin.ModelAdmin):
                 global_preferences['Enable_Welsh_SFIA_Skills'] = False
                 messages.add_message(request, messages.WARNING, "A skill with this code does not exist in the Welsh database table. Therefore the ""Enable_Welsh_SFIA_Skills"" preference has been disabled.")
         super().save_model(request, obj, form, change)
+    def delete_model(self, request, obj):
+        if global_preferences['Enable_Welsh_SFIA_Skills'] == True:
+            global_preferences['Enable_Welsh_SFIA_Skills'] = False
+            messages.add_message(request, messages.WARNING, "The English and Welsh skill sets in the database must be identical. Therefore the ""Enable_Welsh_SFIA_Skills"" preference has been disabled.")
+        super().delete_model(request, obj)
+    def delete_queryset(self, request, queryset):
+        if global_preferences['Enable_Welsh_SFIA_Skills'] == True:
+            global_preferences['Enable_Welsh_SFIA_Skills'] = False
+            messages.add_message(request, messages.WARNING, "The English and Welsh skill sets in the database must be identical. Therefore the ""Enable_Welsh_SFIA_Skills"" preference has been disabled.")
+        super().delete_queryset(request, queryset)
 
 class en_SkillJSONAdmin(admin.ModelAdmin):
     model = en_SkillJSON
@@ -107,6 +117,16 @@ class cy_SkillAdmin(admin.ModelAdmin):
                 global_preferences['Enable_Welsh_SFIA_Skills'] = False
                 messages.add_message(request, messages.WARNING, "A skill with this code does not exist in the English database table. Therefore the ""Enable_Welsh_SFIA_Skills"" preference has been disabled.")
         super().save_model(request, obj, form, change)
+    def delete_model(self, request, obj):
+        if global_preferences['Enable_Welsh_SFIA_Skills'] == True:
+            global_preferences['Enable_Welsh_SFIA_Skills'] = False
+            messages.add_message(request, messages.WARNING, "The English and Welsh skill sets in the database must be identical. Therefore the ""Enable_Welsh_SFIA_Skills"" preference has been disabled.")
+        super().delete_model(request, obj)
+    def delete_queryset(self, request, queryset):
+        if global_preferences['Enable_Welsh_SFIA_Skills'] == True:
+            global_preferences['Enable_Welsh_SFIA_Skills'] = False
+            messages.add_message(request, messages.WARNING, "The English and Welsh skill sets in the database must be identical. Therefore the ""Enable_Welsh_SFIA_Skills"" preference has been disabled.")
+        super().delete_queryset(request, queryset)
 
 class cy_SkillJSONAdmin(admin.ModelAdmin):
     model = cy_SkillJSON
