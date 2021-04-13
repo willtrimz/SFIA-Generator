@@ -64,3 +64,11 @@ class docx_templates(models.Model):
     class Meta:
         verbose_name = 'Docx Form Template'
         verbose_name_plural = 'Docx Form Templates'
+
+class core_competencies_json(models.Model):
+    file = models.FileField(upload_to='Generator/CoreCompetenciesJSONs/', storage=OverwriteStorage())
+    def __str__(self):
+        return self.file.name.__str__()
+    class Meta:
+        verbose_name = 'Core Competencies JSON file'
+        verbose_name_plural = 'Core Competencies JSON files'

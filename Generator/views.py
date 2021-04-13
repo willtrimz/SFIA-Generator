@@ -84,10 +84,20 @@ def select_second(request, code_1):  # Same as list_skills but addional context 
 def language_preferences_page(request):
     if request.method == 'POST':
         try:
-            if 'use_welsh_data' in request.POST:
+            if 'use_welsh_SFIA_data' in request.POST:
                 global_preferences['Enable_Welsh_SFIA_Skills'] = True
             else:
                 global_preferences['Enable_Welsh_SFIA_Skills'] = False
+            
+            if 'use_welsh_docx_templates' in request.POST:
+                global_preferences['Enable_Welsh_Docx_Templates'] = True
+            else:
+                global_preferences['Enable_Welsh_Docx_Templates'] = False
+
+            if 'use_welsh_core_competencies' in request.POST:
+                global_preferences['Enable_Welsh_Core_Competencies'] = True
+            else:
+                global_preferences['Enable_Welsh_Core_Competencies'] = False
             messages.success(request, _('Changes saved!'))
         except ValidationError as VE:
             # If an error is raised by the dynamic preferences registry, deliver error message to user.
@@ -97,18 +107,29 @@ def language_preferences_page(request):
     return render(request, 'language_preferences.html', {})
 
 
-# Check if the user is using the Welsh site and if the Welsh translation of SFIA is available
-# So that we can retrieve skills in the appropriate language
-def welsh_available():
+# Check if the user is using the Welsh site and if the Welsh translations of data are available
+# So that we can retrieve data/files in the appropriate language
+def welsh_SFIA_available():
     if get_language() == 'cy' and global_preferences['Enable_Welsh_SFIA_Skills'] == True:
         return True
     else:
         return False
+def welsh_docxtemplates_available():
+    if get_language() == 'cy' and global_preferences['Enable_Welsh_Docx_Templates'] == True:
+        return True
+    else:
+        return False
+def welsh_coreCompetencies_available():
+    if get_language() == 'cy' and global_preferences['Enable_Welsh_Core_Competencies'] == True:
+        return True
+    else:
+        return False
+
 
 # View details of skill
 def show_skill(request, code):
     try:
-        if welsh_available():
+        if welsh_SFIA_available():
             skill_object = cy_Skill.objects.get(code=code.lower())  # Get the skill (Welsh) from the code
             levels = cy_Level.objects.filter(skill=skill_object)  # Get the levels using the skill_object as the key
         else:
@@ -126,7 +147,7 @@ def show_skill(request, code):
 # View details of second selected skill
 def view_second(request, code_1, code_2):
     try:
-        if welsh_available():
+        if welsh_SFIA_available():
             skill_object = cy_Skill.objects.get(code=code_2.lower())  # Get the skill from the code
             levels = cy_Level.objects.filter(skill=skill_object)  # Get the levels using the skill_object as the key
         else:
@@ -147,7 +168,7 @@ def get_skill_sets():
     set_1 = []  # Column 1
     set_2 = []  # Column 2
     set_3 = []  # Column 3
-    if welsh_available():
+    if welsh_SFIA_available():
         skill_objects = cy_Skill.objects.all().order_by('code') # Get all the skills and order them by the skill code
     else:
         skill_objects = en_Skill.objects.all().order_by('code')
@@ -248,7 +269,7 @@ def is_valid(request):
         if sk1_start >= 1 and sk2_start >= 1 and sk1_stop <= 7 and sk2_stop <= 7 and (
                 type == 'student' or type == 'employer'):
             try:  # Try to retrieve the skill object
-                if welsh_available():
+                if welsh_SFIA_available():
                     skill_object = cy_Skill.objects.get(code=sk1.lower())
                 else:
                     skill_object = en_Skill.objects.get(code=sk1.lower())
@@ -256,7 +277,7 @@ def is_valid(request):
                 return False
             if sk2 != '':  # If the second skill isn't blank
                 try:  # Try to retrieve the second skill object
-                    if welsh_available():
+                    if welsh_SFIA_available():
                         skill_object = cy_Skill.objects.get(code=sk2.lower())
                     else:
                         skill_object = en_Skill.objects.get(code=sk2.lower())
@@ -284,7 +305,7 @@ def generate(request):
         dedicate = True
 
     # Generating the document
-    if welsh_available():
+    if welsh_docxtemplates_available():
         doc = docx.Document(settings.BASE_DIR + '/Generator/DocxTemplates/{formType}_template_cy.docx'.format(formType = type))
     else:
         doc = docx.Document(settings.BASE_DIR + '/Generator/DocxTemplates/{formType}_template_en.docx'.format(formType = type))
@@ -339,7 +360,7 @@ def generate(request):
 
 # Get skill information
 def get_skill(sk_code):
-    if welsh_available():
+    if welsh_SFIA_available():
         skill_object = cy_Skill.objects.get(code=sk_code.lower())
         level_model = cy_Level
     else:
@@ -413,8 +434,12 @@ def add_core_competencies(type, doc):
     # Add the heading for the core competencies section of the form
     h = doc.add_paragraph('')
     h.alignment = docx.enum.text.WD_ALIGN_PARAGRAPH.CENTER
-    with open(settings.BASE_DIR + "/uploads/core_competencies.json", "r") as read_file:
-        data = json.load(read_file)
+    if welsh_coreCompetencies_available():
+        with open(settings.BASE_DIR + "/Generator/CoreCompetenciesJSONs/core_competencies_cy.json", "r") as read_file:
+            data = json.load(read_file)
+    else:
+        with open(settings.BASE_DIR + "/Generator/CoreCompetenciesJSONs/core_competencies_en.json", "r") as read_file:
+            data = json.load(read_file)
     heading = h.add_run(data['heading'])
     heading.bold = True
     heading.font.size = Pt(14)
@@ -471,12 +496,12 @@ def add_core_competencies(type, doc):
     add_page_break(doc)
     # Add business skills description and table
     p = doc.add_paragraph('')
+    business_skills = data['business_skills']
     business_skills_heading = p.add_run()
     business_skills_heading.add_break()
-    business_skills_heading.add_text('Business Skills - these include the following key skills:')
+    business_skills_heading.add_text(business_skills['message'])
     business_skills_heading.bold = True
     business_skills_heading.font.name = 'Calibri'
-    business_skills = data['business_skills']
     for key_skill in business_skills['skills_included']:
         p = doc.add_paragraph(key_skill, style = 'List Bullet')
     # Table 2 Generation

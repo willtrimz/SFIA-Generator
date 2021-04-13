@@ -12,8 +12,14 @@
                 <form name='lang_preferences_form' method="post" data-ajax="false">
                     {% csrf_token %}
                     {% include 'messages.html' %}
-                    <input id="cb" type="checkbox" name='use_welsh_data' {% if global_preferences.Enable_Welsh_SFIA_Skills %} checked {% endif %}>
-                    <label for="use_welsh_data"> {% trans 'Use Welsh translations of SFIA framework for the Welsh site' %} </label><br>
+                    <input id="cb" type="checkbox" name='use_welsh_SFIA_data' {% if global_preferences.Enable_Welsh_SFIA_Skills %} checked {% endif %}>
+                    <label for="use_welsh_SFIA_data"> {% trans 'Use Welsh translations of SFIA framework for the Welsh site' %} </label><br>
+                    <br>
+                    <input id="cb" type="checkbox" name='use_welsh_docx_templates' {% if global_preferences.Enable_Welsh_Docx_Templates %} checked {% endif %}>
+                    <label for="use_welsh_docx_templates"> {% trans 'Use Welsh translations of Docx form templates for the Welsh site' %} </label><br>
+                    <br>
+                    <input id="cb" type="checkbox" name='use_welsh_core_competencies' {% if global_preferences.Enable_Welsh_Core_Competencies %} checked {% endif %}>
+                    <label for="use_welsh_core_competencies"> {% trans 'Use Welsh translations of the SFIA core competencies Welsh site' %} </label><br>
                     <br>
                     <input type="submit" value="{% trans 'Save' %}">
                 </form>

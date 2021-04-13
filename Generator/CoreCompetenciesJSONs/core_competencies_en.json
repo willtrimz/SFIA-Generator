@@ -1,0 +1,51 @@
+{
+"heading": "Assessment of Core Competencies & Business Skills",
+"student_message": "Please highlight the statements that you feel you have demonstrated at this stage in the placement:",
+"employer_message": "Please highlight the statements that you feel the student has demonstrated at this stage in the placement:",
+"competencies": [
+    {
+    "competency":"Autonomy",
+    "levels": [
+        {"level": 1, "description": "Works under supervision. Uses little discretion. Is expected to seek guidance in unexpected situations."},
+        {"level": 2, "description": "Works under routine direction. Uses limited discretion in resolving issues or enquiries. Works without frequent reference to others."},
+        {"level": 3, "description": "Works under general direction. Uses discretion in identifying and responding to complex issues and assignments. Usually receives specific instructions and has work reviewed at frequent milestones. Determines when issues should be escalated to a higher level."},
+        {"level": 4, "description": "Works under general direction within a clear framework of accountability. Exercises substantial personal responsibility and autonomy. Plans own work to meet given objectives and processes."},
+        {"level": 5, "description": "Works under broad direction. Work is often self-initiated. Is fully responsible for meeting allocated technical and/or project/supervisory objectives. Establishes milestones and has a significant role in the assignment of tasks and/or responsibilities."}
+    ]
+    },
+    {
+    "competency":"Influence",
+    "levels": [
+        {"level": 1, "description": "Minimal influence. May work alone or interact with immediate colleagues"},
+        {"level": 2, "description": "Interacts with and may influence immediate colleagues. May have some external contact with customers, suppliers and partners May have more influence in own domain."},
+        {"level": 3, "description": "Interacts with and influences colleagues. Has working level contact with customers, suppliers and partners. May supervise others or make decisions which impact the work assigned to individuals or phases of projects."},
+        {"level": 4, "description": "Influences customers, suppliers and partners at account level. May have some responsibility for the work of others and for the allocation of resources. Participates in external activities related to own specialism. Makes decisions which influence the success of projects and team objectives."},
+        {"level": 5, "description": "Influences organisation, customers, suppliers, partners and peers on the contribution of own specialism. Builds appropriate and effective business relationships. Makes decisions which impact the success of assigned work, i.e. results, deadlines and budget. Has significant influence over the allocation and management of resources appropriate to given assignments."}
+    ]
+    },
+    {
+    "competency":"Complexity",
+    "levels": [
+        {"level": 1, "description": "Performs routine activities in a structured environment. Requires assistance in resolving unexpected problems."},
+        {"level": 2, "description": "Performs a range of work activities in varied environments. May contribute to routine issue resolution."},
+        {"level": 3, "description": "Performs a range of work, sometimes complex and non- routine, in a variety of environments. Applies methodical approach to issue definition and resolution."},
+        {"level": 4, "description": "Work includes a broad range of complex technical or professional activities, in a variety of contexts. Investigates, defines and resolves complex issues."},
+        {"level": 5, "description": "Performs an extensive range and variety of complex technical and/or professional work activities. Undertakes work which requires the application of fundamental principles in a wide and often unpredictable range of contexts. Understands the relationship between own specialism and wider customer/organisational requirements."}
+    ]
+    }
+    
+],
+"business_skills": {
+    "competency_name":"Business Skills",
+    "message":"Business Skills - these include the following key skills:",
+    "skills_included": ["Approach to Work", "Use of tools standards, methods, applications.", "Communication skills",  "Teamworking Skills", "Time Management Skills", "Business Awareness Personal Development"],
+    "levels": [
+        {"level": 1, "description": "Has sufficient communication skills for effective dialogue with others. Demonstrates an organised approach to work. Uses basic systems and tools, applications, and processes. Contributes to identifying own development opportunities. Follows code of conduct, ethics and organisational standards. Is aware of health and safety issues. Understands and applies basic personal security practice."},
+        {"level": 2, "description": "Has sufficient communication skills for effective dialogue with customers, suppliers and partners. Is able to work in a team. Is able to plan, schedule and monitor own work within short time horizons. Demonstrates a rational and organised approach to work. Understands and uses appropriate methods, tools and applications. Identifies and negotiates own development opportunities. Is fully aware of and complies with essential organisational security practices expected of the individual."},
+        {"level": 3, "description": "Demonstrates effective communication skills. Plans, schedules and monitors own work (and that of others where applicable) competently within limited deadlines and according to relevant legislation, standards and procedures. Contributes fully to the work of teams. Appreciates how own role relates to other roles and to the business of the employer or client. Demonstrates an analytical and systematic approach to issue resolution. Takes the initiative in identifying and negotiating appropriate personal development opportunities. Understands how own role impacts security and demonstrates routine security practice and knowledge required for own work."},
+        {"level": 4, "description": "Communicates fluently, orally and in writing, and can present complex information to both technical and nontechnical audiences. Plans, schedules and monitors work to meet time and quality targets. Facilitates collaboration between stakeholders who share common objectives. Selects appropriately from applicable standards, methods, tools and applications. Fully understands the importance of security to own work and the operation of the organisation. Seeks specialist security knowledge or advice when required to support own work or work of immediate colleagues."},
+        {"level": 5, "description": "Facilitates collaboration between stakeholders who have diverse objectives. Analyses, designs, plans, executes and evaluates work to time, cost and quality targets. Analyses requirements and advises on scope and options for continuous operational improvement. Takes all requirements into account when making proposals. Demonstrates creativity, innovation and ethical thinking in applying solutions for the benefit of the customer/stakeholder. Advises on the available standards, methods, tools and applications relevant to own specialism and can make appropriate choices from alternatives. Maintains an awareness of developments in the industry. Takes initiative to keep skills up to date. Mentors colleagues. Assesses and evaluates risk. Proactively ensures security is appropriately addressed within their area by self and others. Engages or works with security specialists as necessary. Contributes to the security culture of the organisation."}
+    ]
+    }
+
+}
