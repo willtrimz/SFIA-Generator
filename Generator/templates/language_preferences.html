@@ -1,12 +1,22 @@
-{% extends 'base.html' %}
-{% load static %}
 {% load i18n %}
+{% load static %}
+{% get_current_language as LANGUAGE_CODE %}
+<!doctype html>
+<html lang="{{ LANGUAGE_CODE }}">
+  <head>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet"
+          id="bootstrap-css">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-{% block content %}
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-8">
-                <br>
+  </head>
+  <body>
+    <div class="container-fluid">
+        <div class="row justify-content-center" style="padding-top: 3em;">
+            <div class='col'>
+                <a role="button" href="{% url 'admin:index' %}" class="btn btn-secondary" style="padding: .375rem 1.2rem;">Back</a>
+            </div>
+            <div class="col-5">
                 <h2 class="mt-2">Language Preferences</h2>
                 <hr class="mt-0 mb-4">
                 <form name='lang_preferences_form' method="post" data-ajax="false">
@@ -21,9 +31,12 @@
                     <input id="cb" type="checkbox" name='use_welsh_core_competencies' {% if global_preferences.Enable_Welsh_Core_Competencies %} checked {% endif %}>
                     <label for="use_welsh_core_competencies"> Use Welsh translations of the SFIA core competencies for the Welsh site </label><br>
                     <br>
-                    <input type="submit" value="Save">
+                    <input type="submit" class="btn btn-primary" value="Save">
                 </form>
+            </div>
+            <div class='col'> <!-- empty col so grid is split into thirds -->
             </div>
         </div>
     </div>
-{% endblock %}
+  </body>
+</html>
