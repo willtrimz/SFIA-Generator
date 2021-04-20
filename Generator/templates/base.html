@@ -4,12 +4,19 @@
 <!doctype html>
 <html lang="{{ LANGUAGE_CODE }}">
   <head>
+	<script id="jQuery" src="//code.jquery.com/jquery-1.11.1.min.js"></script>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet"
           id="bootstrap-css">
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.js"></script>
-    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<script> 
+		function deleteJQuery(){
+			let jQuery = document.getElementById('jQuery');
+			jQuery.remove();
+			location.assign("{% url 'admin:index' %}");
+		}
+	</script>
 {% block head %}
 {% endblock %}
 	<style>
@@ -55,7 +62,7 @@
 		  </ul>
 		  <ul class="navbar-nav">
 			<li class="nav-item">
-			  <a class="nav-link" href="{% url 'admin:index' %}">{% trans 'Staff Login' %}</a>
+			  <a class="nav-link" onclick="deleteJQuery()" href="#">{% trans 'Staff Login' %}</a>
 			</li>
 			<li class="nav-item">
 			  <form action="{% url 'set_language' %}" method="post">{% csrf_token%}
