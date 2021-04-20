@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% load i18n %}
 {% load static %}
+{% get_current_language as LANGUAGE_CODE %}
 {% csrf_token %}
 {% block head %}
     <link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" media="screen">
@@ -13,6 +14,7 @@
                 <br>
                 <br>
                 <h2 style="font-weight: bold;">Skills Available:</h2>
+                {% if not global_preferences.Enable_Welsh_SFIA_Skills and LANGUAGE_CODE == 'cy'%}<p>({% trans 'Unfortunately the SFIA skills are not currently available in Welsh' %})</p>{% endif %}
                 {% include 'messages.html' %}
                 {% if code_1 %}
                     <a href="{% url 'list_skills_page' %}">{% trans "Click here to select a different first skill" %}</a>

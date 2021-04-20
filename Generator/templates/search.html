@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% load i18n %}
 {% load static %}
+{% get_current_language as LANGUAGE_CODE %}
 {% block head %}
     <link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" media="screen">
     <script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
@@ -15,6 +16,7 @@
                     {% csrf_token %}
                     <h2 style="font-weight: bold;">{% trans "Skill Search:" %}</h2>
                     <label for="input">{% trans "Type/paste a paragraph about the skills you have/want to refine or paste in your resume:" %} </label>
+                    {% if LANGUAGE_CODE == 'cy' %}<p>({% trans 'Unfortunately the search tool only works with English text.'%})</p>{% endif %}
                     {% include 'messages.html' %}
                     <textarea class="input" name="input" id="input" required oninvalid="this.setCustomValidity('{% trans "Please fill in this form field."%}')" oninput="setCustomValidity('')"></textarea>
                     <input type="submit" value="{% trans 'Click here to search for suitable skill' %}">
