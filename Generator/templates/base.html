@@ -34,8 +34,8 @@
 		font-size: 1.4rem !important;
 		color: white !important;
 	  }
-	  #lang_dropdown {
-		padding: .3em .3em !important;
+	  #staff_login_btn {
+		padding: 1.25rem 1rem;
 	  }
 	</style>
   </head>
@@ -43,11 +43,8 @@
     <header>
 	  <div >
 	  <title>{% trans "SFIA Generator" %}</title>
-	  <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+	  <nav class="navbar navbar-expand navbar-dark bg-dark">
 	    <a class="navbar-brand" href="#">{% trans "SFIA Generator" %}</a>
-		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-	      <span class="navbar-toggler-icon"></span>
-		</button>
 		<div class="collapse navbar-collapse" id="navbarCollapse">
 		  <ul class="navbar-nav mr-auto">
 	        <li class="nav-item">
@@ -62,7 +59,7 @@
 		  </ul>
 		  <ul class="navbar-nav">
 			<li class="nav-item">
-			  <a class="nav-link" onclick="deleteJQuery()" href="#">{% trans 'Staff Login' %}</a>
+			  <a class="nav-link" id='staff_login_btn' onclick="deleteJQuery()" href="#">{% trans 'Staff Login' %}</a>
 			</li>
 			<li class="nav-item">
 			  <form action="{% url 'set_language' %}" method="post">{% csrf_token%}
