@@ -7,7 +7,6 @@ from dynamic_preferences.registries import global_preferences_registry
 from .models import en_Skill, en_Level, en_SkillJSON, cy_Skill, cy_Level, cy_SkillJSON, docx_templates, core_competencies_json
 
 global_preferences = global_preferences_registry.manager()
-# Register your models here.
 
 def processJSON(modeladmin, request, queryset):
     for file in queryset:
@@ -158,7 +157,7 @@ class core_competencies_jsonAdmin(admin.ModelAdmin):
                 docx_templates.objects.filter(file__endswith=filename).delete()
             super().save_model(request, obj, form, change)
 
-
+# Register your models here.
 admin.site.register(en_Skill, en_SkillAdmin)
 admin.site.register(en_SkillJSON, en_SkillJSONAdmin)
 
