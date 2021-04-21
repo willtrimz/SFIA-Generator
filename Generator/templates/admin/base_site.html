@@ -13,6 +13,10 @@ SFIA Generator Admin
 <link rel="stylesheet" href="{% static 'css/admin_extrastyle.css' %}">
 {% endblock %}
 
+{% block extrahead %}
+<link rel="shortcut icon" type="image/png" href="{% static 'img/favicon.ico' %}"/>
+{% endblock %}
+
 {% block nav-global %}
 <a href="{% url 'language_preferences_page' %}" class="changelink">Language Preferences</a>
 {% endblock %}
