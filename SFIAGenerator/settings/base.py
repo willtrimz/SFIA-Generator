@@ -34,11 +34,10 @@ SECRET_KEY = os.getenv('SECRET_KEY','!ea9jb%#2c#*+gg0rsok+*llvyv)lwqx1q=ebc-j)ki
 
 INSTALLED_APPS = [
     'ckeditor',
+    'django.contrib.auth',
     'Generator.apps.GeneratorConfig',
     'django.contrib.admin',
-    'django.contrib.auth',
     'dynamic_preferences',
-    'dynamic_preferences.users.apps.UserPreferencesConfig',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',

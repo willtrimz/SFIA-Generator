@@ -5,6 +5,9 @@ from django.db import models
 from ckeditor.widgets import CKEditorWidget
 from dynamic_preferences.registries import global_preferences_registry
 from .models import en_Skill, en_Level, en_SkillJSON, cy_Skill, cy_Level, cy_SkillJSON, docx_templates, core_competencies_json
+from django.contrib.auth.models import Group
+# Remove the 'Group' model from the admin dashboard as it is not needed
+admin.site.unregister(Group)
 
 global_preferences = global_preferences_registry.manager()
 

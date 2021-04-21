@@ -1,0 +1,14 @@
+#header {
+    background: #343A40;
+    color: white;
+}
+#branding h1 {
+    color: white;
+}
+.module h2, .module caption, .inline-group h2 {
+    background: #7D7E81;
+    color: white;
+}
+div.breadcrumbs {
+    background: #7D7E81;
+}
