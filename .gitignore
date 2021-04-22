@@ -1,5 +1,8 @@
-
+*.pyc
+*.pyo
 /.idea/
 /.idea/
 /.idea/workspace.xml
 uploads/
+static/admin
+static/ckeditor
