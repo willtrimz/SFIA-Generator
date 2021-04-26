@@ -13,7 +13,7 @@ from django.utils.translation import get_language
 from dynamic_preferences.registries import global_preferences_registry
 from django.contrib import messages
 from django.forms import ValidationError
-from django.contrib.admin.views.decorators import staff_member_required
+from django.contrib.auth.decorators import user_passes_test
 
 from .models import en_Skill, en_Level, cy_Skill, cy_Level
 
@@ -80,7 +80,8 @@ def select_second(request, code_1):  # Same as list_skills but addional context 
 
 
 # View to access the language preferences
-@staff_member_required
+# Ensure that user is logged in as a superuser before granting access to the language preferences page - otherwise give 404 page not found
+@user_passes_test(lambda u: u.is_superuser)
 def language_preferences_page(request):
     if request.method == 'POST':
         try:
