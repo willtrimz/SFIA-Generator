@@ -53,6 +53,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'SFIAGenerator.AdminMiddleware.AdminLocaleURLMiddleware',
 ]
 
 ROOT_URLCONF = 'SFIAGenerator.urls'
@@ -99,6 +100,8 @@ AUTH_PASSWORD_VALIDATORS = [
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
 
 LANGUAGE_CODE = 'en-us'
+
+ADMIN_LANGUAGE_CODE='en'
 
 LOCALE_PATHS = [
     os.path.join(BASE_DIR, 'locale')
