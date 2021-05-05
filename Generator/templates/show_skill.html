@@ -15,7 +15,7 @@
                         {% csrf_token %}
                         <input type="hidden" id="code_1" name="code_1" value="{{ code_1 }}">
                         <input type="hidden" id="code_2" name="code_2" value="{{ code_2 }}">
-                        <input type="submit" value="Click Here to Pre-Populate Form">
+                        <input type="submit" value="{% trans 'Click Here to Pre-Populate Form' %}">
                     </form>
                     <a href="{% url 'select_second' code_1 %}">{% trans "Click here to select a different second skill" %}</a>
                     <br>

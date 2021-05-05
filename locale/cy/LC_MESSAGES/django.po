@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-03-11 14:37+0000\n"
+"POT-Creation-Date: 2021-05-05 17:54+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,70 +19,74 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n==1) ? 0 : (n==2) ? 1 : (n != 8 && n != "
 "11) ? 2 : 3;\n"
 
-#: .\Generator\templates\base.html:32 .\Generator\templates\base.html:34
-#: .\Generator\templates\form.html:12 .\Generator\templates\invalid.html:10
-#: .\Generator\templates\invalid.html:16
-#: .\Generator\templates\list_skills.html:13
-#: .\Generator\templates\search.html:12
-#: .\Generator\templates\show_skill.html:12
+#: .\Generator\templates\base.html:46 .\Generator\templates\base.html:48
+#: .\Generator\templates\invalid.html:10
 msgid "SFIA Generator"
 msgstr "Generadur SFIA"
 
-#: .\Generator\templates\base.html:41
+#: .\Generator\templates\base.html:52
 msgid "Form Generator"
 msgstr "Generadur Ffurflen"
 
-#: .\Generator\templates\base.html:44
+#: .\Generator\templates\base.html:55
 msgid "Skill Search"
 msgstr "Chwiliwr Sgiliau"
 
-#: .\Generator\templates\base.html:47
+#: .\Generator\templates\base.html:58
 msgid "Browse/Select Skills"
 msgstr "Pori/Dewis sgiliau"
 
-#: .\Generator\templates\form.html:18 .\Generator\templates\search.html:16
-#: .\Generator\templates\show_skill.html:19
-msgid "Click here to show the list of skills or select skills"
-msgstr "Cliciwch yma i ddangos y rhestr o sgiliau neu ddewis sgiliau"
+#: .\Generator\templates\base.html:63
+msgid "Staff Login"
+msgstr "Mewngofnodi Staff"
 
-#: .\Generator\templates\form.html:20 .\Generator\templates\list_skills.html:15
-#: .\Generator\templates\show_skill.html:14
-msgid "Click here to try the skill searcher"
-msgstr "Cliciwch yma i roi cynnig ar y chwiliwr sgiliau"
-
-#: .\Generator\templates\form.html:25
+#: .\Generator\templates\form.html:17
 msgid "Skill 1:"
 msgstr "Sgil 1"
 
-#: .\Generator\templates\form.html:26
+#: .\Generator\templates\form.html:18
 msgid "Skill 1 Code (ex: PROD):"
 msgstr "Côd Sgil 1 (e.e. PROD)"
 
-#: .\Generator\templates\form.html:34
+#: .\Generator\templates\form.html:20
+#| msgid "Skill 1:"
+msgid "Skill 1 Range"
+msgstr "Ystod sgil 1"
+
+#: .\Generator\templates\form.html:26
 msgid "Skill 2:"
 msgstr "Sgil 2"
 
-#: .\Generator\templates\form.html:35
+#: .\Generator\templates\form.html:27
 msgid "Skill 2 Code (ex: TEST) (Optional):"
 msgstr "Côd Sgil 2 (e.e. TEST) (Dewisol)"
 
-#: .\Generator\templates\form.html:36
+#: .\Generator\templates\form.html:28
 msgid "(Optional)"
 msgstr "(Dewisol)"
 
-#: .\Generator\templates\form.html:48
+#: .\Generator\templates\form.html:29
+#| msgid "Skill 2:"
+msgid "Skill 2 Range"
+msgstr "Ystod sgil 2"
+
+#: .\Generator\templates\form.html:37
+msgid "Render skills on dedicated pages"
+msgstr "Rhowch sgiliau ar dudalennau penodol"
+
+#: .\Generator\templates\form.html:40
 msgid "Form Type:"
 msgstr "Math o ffurflen"
 
-#: .\Generator\templates\form.html:50
+#: .\Generator\templates\form.html:42
 msgid "Student"
 msgstr "Myfyriwr"
 
-#: .\Generator\templates\form.html:51
+#: .\Generator\templates\form.html:43
 msgid "Employer"
 msgstr "Cyflogwr"
 
-#: .\Generator\templates\form.html:54
+#: .\Generator\templates\form.html:46
 msgid "Click Here to Download Document"
 msgstr "Cliciwch yma i lawrlwytho dogfen"
 
@@ -99,24 +103,18 @@ msgid "This window will close soon."
 msgstr "Bydd y ffenestr hon yn cau yn fuan"
 
 #: .\Generator\templates\list_skills.html:17
-#: .\Generator\templates\search.html:18
-#: .\Generator\templates\show_skill.html:22
-msgid "Click here to go to document generator"
-msgstr "Cliciwch yma i fynd at y generadur dogfennau"
+msgid "Unfortunately the SFIA skills are not currently available in Welsh"
+msgstr "Yn anffodus, nid yw sgiliau SFIA ar gael yn Gymraeg ar hyn o bryd"
 
-#: .\Generator\templates\list_skills.html:22
-msgid "has been selected as the first skill. Please select the second"
-msgstr "wedi'i ddewis fel y sgil gyntaf. Dewiswch yr ail."
-
-#: .\Generator\templates\list_skills.html:23
+#: .\Generator\templates\list_skills.html:20
 msgid "Click here to select a different first skill"
 msgstr "Cliciwch yma i ddewis sgil gyntaf wahanol"
 
-#: .\Generator\templates\search.html:20
+#: .\Generator\templates\search.html:17
 msgid "Skill Search:"
 msgstr "Chwiliwr Sgiliau"
 
-#: .\Generator\templates\search.html:21
+#: .\Generator\templates\search.html:18
 msgid ""
 "Type/paste a paragraph about the skills you have/want to refine or paste in "
 "your resume:"
@@ -124,27 +122,62 @@ msgstr ""
 "Teipiwch/pastiwch baragraff am y sgiliau sydd gennych/eisiau eu mireinio neu "
 "eu pastio yn eich CV:"
 
-#: .\Generator\templates\search.html:23
+#: .\Generator\templates\search.html:19
+msgid "Unfortunately the search tool only works with English text."
+msgstr "Yn anffodus, mae’r teclyn chwilio yn gweithio gyda thestun Saesneg yn unig"
+
+#: .\Generator\templates\search.html:21
+msgid "Please fill in this form field."
+msgstr "Llenwch y maes hwn ar y ffurflen."
+
+#: .\Generator\templates\search.html:22
 msgid "Click here to search for suitable skill"
 msgstr "Cliciwch yma i chwilio am sgiliau addas."
 
-#: .\Generator\templates\show_skill.html:17
-msgid "Click here to restart selection or list skills"
-msgstr "Cliciwch yma i ailgychwyn dewis neu restru sgiliau"
+#: .\Generator\templates\show_skill.html:18
+#| msgid "Click Here to Pre-Populate Form with only one skill"
+msgid "Click Here to Pre-Populate Form"
+msgstr "Cliciwch yma i lenwi’r ffurflen ymlaen llaw."
 
-#: .\Generator\templates\show_skill.html:25
-msgid "Skills Information:"
-msgstr "Gwybodaeth sgiliau:"
-
-#: .\Generator\templates\show_skill.html:27
+#: .\Generator\templates\show_skill.html:20
 msgid "Click here to select a different second skill"
 msgstr "Cliciwch yma i ddewis ail sgil wahanol"
 
-#: .\Generator\templates\show_skill.html:36
+#: .\Generator\templates\show_skill.html:28
+msgid "Click Here to Pre-Populate Form with only one skill"
+msgstr "Cliciwch yma i lenwi’r ffurflen ymlaen llaw gydag un sgil yn unig"
+
+#: .\Generator\templates\show_skill.html:30
 msgid "Click here to select this as your first skill"
 msgstr "Cliciwch yma i ddewis hwn fel eich sgil gyntaf"
 
-#: .\Generator\templates\show_skill.html:41
-#| msgid "Click here to search for suitable skill"
-msgid "Click Here to Pre-Populate Form with only one skill"
-msgstr "Cliciwch yma i lenwi’r ffurflen ymlaen llaw gydag un sgil yn unig"
+#: .\Generator\templates\show_skill.html:34
+msgid "Click here to restart selection or list skills"
+msgstr "Cliciwch yma i ailgychwyn dewis neu restru sgiliau"
+
+#: .\Generator\templates\show_skill.html:36
+msgid "Click here to show the list of skills or select skills"
+msgstr "Cliciwch yma i ddangos y rhestr o sgiliau neu ddewis sgiliau"
+
+#: .\Generator\templates\show_skill.html:40
+msgid "Skills Information:"
+msgstr "Gwybodaeth sgiliau:"
+
+#: .\Generator\views.py:45
+msgid ""
+"The form has been pre-populated with the search results. If no suitable "
+"skills have been found, the fields have been left blank."
+msgstr ""
+"Mae'r ffurflen wedi'i llenwi ymlaen llaw gyda'r canlyniadau chwilio. Os na ddaethpwyd "
+"o hyd i unrhyw sgiliau addas, mae’r meysydd wedi’u gadael yn wag."
+
+#: .\Generator\views.py:77
+#| msgid "has been selected as the first skill. Please select the second"
+msgid " has been selected as the first skill. Please select the second."
+msgstr " wedi'i ddewis fel y sgil gyntaf. Dewiswch yr ail."
+
+#~ msgid "Click here to try the skill searcher"
+#~ msgstr "Cliciwch yma i roi cynnig ar y chwiliwr sgiliau"
+
+#~ msgid "Click here to go to document generator"
+#~ msgstr "Cliciwch yma i fynd at y generadur dogfennau"
