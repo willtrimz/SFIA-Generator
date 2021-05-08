@@ -23,13 +23,13 @@
                     {% csrf_token %}
                     {% include 'messages.html' %}
                     <input id="cb" type="checkbox" name='use_welsh_SFIA_data' {% if global_preferences.Enable_Welsh_SFIA_Skills %} checked {% endif %}>
-                    <label for="use_welsh_SFIA_data"> Use Welsh translations of SFIA framework for the Welsh site </label><br>
+                    <label title="This option should be disabled if a Welsh translation of the SFIA framework is not available or you only wish to use the English SFIA skills" for="use_welsh_SFIA_data"> Use Welsh translations of SFIA framework for the Welsh site </label><br>
                     <br>
                     <input id="cb" type="checkbox" name='use_welsh_docx_templates' {% if global_preferences.Enable_Welsh_Docx_Templates %} checked {% endif %}>
-                    <label for="use_welsh_docx_templates"> Use Welsh translations of Docx form templates for the Welsh site </label><br>
+                    <label title="This option should be disabled if Welsh translations of the Docx form templates are not available or you only wish to use the English form tempates" for="use_welsh_docx_templates"> Use Welsh translations of Docx form templates for the Welsh site </label><br>
                     <br>
                     <input id="cb" type="checkbox" name='use_welsh_core_competencies' {% if global_preferences.Enable_Welsh_Core_Competencies %} checked {% endif %}>
-                    <label for="use_welsh_core_competencies"> Use Welsh translations of the SFIA core competencies for the Welsh site </label><br>
+                    <label title="This option should be disabled if a Welsh translation of the SFIA core competencies is not available or you only wish to use the English core competencies" for="use_welsh_core_competencies"> Use Welsh translations of the SFIA core competencies for the Welsh site </label><br>
                     <br>
                     <input type="submit" class="btn btn-primary" value="Save">
                 </form>
