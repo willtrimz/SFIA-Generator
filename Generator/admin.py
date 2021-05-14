@@ -76,6 +76,8 @@ class en_SkillAdmin(admin.ModelAdmin):
         models.TextField: {'widget': CKEditorWidget(config_name='advanced_setting')},
     }
     def save_model(self, request, obj, form, change):
+        # Convert the skill code to a lowercase slug
+        obj.code = slugify(obj.code)
         # If the same skill cannot be located in the Welsh skill database, disable the Enable_Welsh_SFIA_Skills preference
         try:
             cy_Skill.objects.get(code=obj.code)
@@ -127,6 +129,8 @@ class cy_SkillAdmin(admin.ModelAdmin):
         models.TextField: {'widget': CKEditorWidget(config_name='advanced_setting')},
     }
     def save_model(self, request, obj, form, change):
+        # Convert the skill code to a lowercase slug
+        obj.code = slugify(obj.code)
         # If the same skill cannot be located in the English skill database, disable the Enable_Welsh_SFIA_Skills preference
         try:
             en_Skill.objects.get(code=obj.code)

@@ -16,10 +16,13 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from dynamic_preferences.models import GlobalPreferenceModel
+from django.conf import settings
 # Removing the global preferences from the admin dashboard so they can only be changed using the language preferences form page
 # This must be done here as if you try to do it from admin.py it will not yet have been registered and will throw an error
 admin.autodiscover()
-admin.site.unregister(GlobalPreferenceModel)
+# Only execute this line if DEBUG is false, as it will surpress other errors if django tries to unregister the model before it has been registered (due to an error)
+if not settings.DEBUG:
+    admin.site.unregister(GlobalPreferenceModel)
 
 urlpatterns = [
     path('', include('Generator.urls')),

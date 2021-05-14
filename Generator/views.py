@@ -34,12 +34,24 @@ def index(request):
                 and 'sk1_max' in request.POST and 'sk2_max' in request.POST:
             # Checking validity of request
             if is_valid(request):
-                # Generate and return the form
-                return generate(request)
+                # Checking the level range selected for the skills are valid
+                sk1_valid_levels = get_valid_levelrange(request.POST['sk1'], int(request.POST['sk1_min']), int(request.POST['sk1_max']))
+                sk2_valid_levels = get_valid_levelrange(request.POST['sk2'], int(request.POST['sk2_min']), int(request.POST['sk2_max']))
+                # If range for skill 1 is invalid, inform user
+                if not sk1_valid_levels[0]:
+                    messages.info(request, _("Invalid skill range: ") + request.POST['sk1'] + _(". This skill only has the following levels: ") + str(sk1_valid_levels[1]))
+                    return render(request, 'form.html', {})
+                # If range for skill 2 is invalid, inform user
+                elif not sk2_valid_levels[0]:
+                    messages.info(request, _("Invalid skill range: ") + request.POST['sk2'] + _(". This skill only has the following levels: ") + str(sk2_valid_levels[1]))
+                    return render(request, 'form.html', {})
+                else:
+                    return generate(request)
             else:
-                # Return the page for an invalid request
-                return render(request, 'invalid.html', {})
-
+                # If either skill code is invalid, inform the user of this and do not generate form
+                messages.info(request, _("Request invalid. Please check skill codes in the SFIA document"))
+                return render(request, 'form.html')
+            
         # If data was posted from the search function form.
         elif 'input' in request.POST:
             messages.info(request, _("The form has been pre-populated with the search results. If no suitable skills have been found, the fields have been left blank."))
@@ -221,21 +233,24 @@ def search_similarities(request):
     # Checking for similarities with skill descriptions
     # Same procedure as with for levels
     for skill in en_Skill.objects.all():
-        skill_sim_total = 0
+        # Make sure skill has a finite description
+        if len(sent_tokenize(skill.description)) > 0:
+            skill_sim_total = 0
 
-        for sentence in sent_tokenize(skill.description):
-            query_doc = [w.lower() for w in word_tokenize(sentence)]
-            query_doc_bow = dictionary.doc2bow(query_doc)
-            query_doc_tf_idf = tf_idf[query_doc_bow]
-            sum_of_sims = (np.sum(sims[query_doc_tf_idf], dtype=np.float32))
-            similarity = float(sum_of_sims / len(sent_tokenize(input)))
-            skill_sim_total += similarity
+            for sentence in sent_tokenize(skill.description):
+                query_doc = [w.lower() for w in word_tokenize(sentence)]
+                query_doc_bow = dictionary.doc2bow(query_doc)
+                query_doc_tf_idf = tf_idf[query_doc_bow]
+                sum_of_sims = (np.sum(sims[query_doc_tf_idf], dtype=np.float32))
+                similarity = float(sum_of_sims / len(sent_tokenize(input)))
+                skill_sim_total += similarity
 
-        skill_sim = skill_sim_total / len(sent_tokenize(skill.description))
-        if skill.code not in similarities:
-            similarities[skill.code] = skill_sim
-        elif similarities[skill.code] < skill_sim:
-            similarities[skill.code] = skill_sim
+            skill_sim = skill_sim_total / len(sent_tokenize(skill.description))
+            if skill.code not in similarities:
+                similarities[skill.code] = skill_sim
+            elif similarities[skill.code] < skill_sim:
+                similarities[skill.code] = skill_sim
+       
     # Find the most similar skill
     first_match = max(similarities, key=similarities.get)
     # If the maximum similarity score was 0, return the form
@@ -275,6 +290,7 @@ def is_valid(request):
                 else:
                     skill_object = en_Skill.objects.get(code=sk1.lower())
             except:
+                print("A")
                 return False
             if sk2 != '':  # If the second skill isn't blank
                 try:  # Try to retrieve the second skill object
@@ -384,6 +400,23 @@ def get_skill(sk_code):
     # Return the dictionary
     return skill
 
+# Get the numbers of the valid levels of a particular skill
+# To be used if an invalid level range (i.e. outside the existing levels of the skill) is entered on the form
+def get_valid_levelrange(sk_code, sk_min, sk_max):
+    if sk_code == '':
+        return True, []
+    sk = get_skill(sk_code)
+    valid_levels = []
+    for level in sk['levels']:
+        valid_levels.append(level['level'])
+    valid_levels.sort()
+    # If the selected min and max level values from the form are both < or both > the valid range then the range is invalid
+    range_isValid = True
+    if sk_min < min(valid_levels) and sk_max < min(valid_levels):
+        range_isValid = False
+    elif sk_min > max(valid_levels) and sk_max > max(valid_levels):
+        range_isValid = False
+    return range_isValid, valid_levels
 
 # Get levels in a certain range
 def get_levels(sk_code, sk_range):

@@ -1,14 +1,24 @@
 #header {
-    background: #343A40;
-    color: white;
+    background: #2B354C !important;
+    color: white !important;
 }
 #branding h1 {
-    color: white;
+    color: white !important;
 }
 .module h2, .module caption, .inline-group h2 {
-    background: #7D7E81;
-    color: white;
+    background: #b6d9d8 !important;
+    color: #2b354c !important;
 }
 div.breadcrumbs {
-    background: #7D7E81;
+    background: #b6d9d8 !important;
+    color:#2b354c !important;
+}
+a.section:link, a.section:visited {
+    color:#2b354c !important;
+}
+div.breadcrumbs a {
+    color: #2b354c !important;
+}
+div.breadcrumbs a:hover {
+    color: #555f78 !important;
 }

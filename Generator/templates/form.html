@@ -12,7 +12,7 @@
                 <br>
                 <br>
                 {% include 'messages.html' %}
-                <form name='sfia_form' method="post" data-ajax="false" target="_blank">
+                <form name='sfia_form' method="post" data-ajax="false">
                     {% csrf_token %}
                     <h2 style="font-weight: bold;">{% trans "Skill 1:" %}</h2>
                     <label for="sk1">{% trans "Skill 1 Code (ex: PROD):" %}</label>
