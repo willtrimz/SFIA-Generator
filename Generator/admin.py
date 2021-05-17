@@ -157,7 +157,7 @@ class cy_SkillJSONAdmin(admin.ModelAdmin):
     def save_model(self, request, obj, form, change):
         # Check that file follows valid format and structure
         if not ValidateSFIASkillsJson(request):
-            messages.add_message(request, messages.WARNING, "The selected file could not be. Please ensure you have selected the correct file and it has been formatted/structured correctly.")
+            messages.add_message(request, messages.WARNING, "The selected file could not be uploaded. Please ensure you have selected the correct file and it has been formatted/structured correctly.")
             messages.set_level(request, messages.ERROR)
         # If so, save model
         else:
