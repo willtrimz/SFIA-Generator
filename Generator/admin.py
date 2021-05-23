@@ -178,6 +178,23 @@ class docx_templatesAdmin(admin.ModelAdmin):
             if docx_templates.objects.filter(file__endswith=filename).exists():
                 docx_templates.objects.filter(file__endswith=filename).delete()
             super().save_model(request, obj, form, change)
+    def delete_model(self, request, obj):
+        # If form templates are deleted, disable the Enable_Welsh_Docx_Templates language preference
+        if global_preferences['Enable_Welsh_Docx_Templates'] == True:
+            global_preferences['Enable_Welsh_Docx_Templates'] = False
+            messages.add_message(request, messages.WARNING, "The Enable_Welsh_Docx_Templates language preference has been disabled.")
+        # If an English form template is deleted, warn the user that the application requires the English templates
+        if "template_en" in obj.__str__():
+            messages.add_message(request, messages.WARNING, "WARNING: The form generator needs at least the English form templates to function.")
+        super().delete_model(request, obj)
+    def delete_queryset(self, request, queryset):
+        # Same if multiple items are deleted
+        if global_preferences['Enable_Welsh_Docx_Templates'] == True:
+            global_preferences['Enable_Welsh_Docx_Templates'] = False
+            messages.add_message(request, messages.WARNING, "The Enable_Welsh_Docx_Templates language preference has been disabled.")
+        if any("template_en" in filename for filename in map(str, queryset)):
+            messages.add_message(request, messages.WARNING, "WARNING: The form generator needs at least the English form templates to function.")
+        super().delete_queryset(request, queryset)
 
 
 class core_competencies_jsonAdmin(admin.ModelAdmin):
@@ -198,6 +215,23 @@ class core_competencies_jsonAdmin(admin.ModelAdmin):
             if core_competencies_json.objects.filter(file__endswith=filename).exists():
                 core_competencies_json.objects.filter(file__endswith=filename).delete()
             super().save_model(request, obj, form, change)
+    def delete_model(self, request, obj):
+        # If core competencies are deleted, disable the Enable_Welsh_Core_Competencies language preference
+        if global_preferences['Enable_Welsh_Core_Competencies'] == True:
+            global_preferences['Enable_Welsh_Core_Competencies'] = False
+            messages.add_message(request, messages.WARNING, "The Enable_Welsh_Core_Competencies language preference has been disabled.")
+        # If an English core competencies file is deleted, warn the user that the application requires the English core competencies
+        if "core_competencies_en" in obj.__str__():
+            messages.add_message(request, messages.WARNING, "WARNING: The form generator needs at least the English core competencies to function.")
+        super().delete_model(request, obj)
+    def delete_queryset(self, request, queryset):
+        # Same if multiple items are deleted
+        if global_preferences['Enable_Welsh_Core_Competencies'] == True:
+            global_preferences['Enable_Welsh_Core_Competencies'] = False
+            messages.add_message(request, messages.WARNING, "The Enable_Welsh_Core_Competencies language preference has been disabled.")
+        if any("core_competencies_en" in filename for filename in map(str, queryset)):
+            messages.add_message(request, messages.WARNING, "WARNING: The form generator needs at least the English core competencies to function.")
+        super().delete_queryset(request, queryset)
         
 # File Validation:
  
