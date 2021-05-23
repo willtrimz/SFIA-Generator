@@ -61,7 +61,7 @@ processJSON.short_description = 'Upload to Models'
 class en_LevelInline(admin.TabularInline):
     model = en_Level
     formfield_overrides = {
-        models.TextField : {'widget': CKEditorWidget(config_name='advanced_setting')},
+        models.TextField : {'widget': CKEditorWidget(config_name='default')},
     }
     ordering = ('level',)
     extra = 0
@@ -73,7 +73,7 @@ class en_SkillAdmin(admin.ModelAdmin):
     # Link the skill levels to the skill form so they can be entered at the same time 
     inlines = [en_LevelInline]
     formfield_overrides = {
-        models.TextField: {'widget': CKEditorWidget(config_name='advanced_setting')},
+        models.TextField: {'widget': CKEditorWidget(config_name='default')},
     }
     def save_model(self, request, obj, form, change):
         # Convert the skill code to a lowercase slug
@@ -114,7 +114,7 @@ class en_SkillJSONAdmin(admin.ModelAdmin):
 class cy_LevelInline(admin.TabularInline):
     model = cy_Level
     formfield_overrides = {
-        models.TextField : {'widget': CKEditorWidget(config_name='advanced_setting')},
+        models.TextField : {'widget': CKEditorWidget(config_name='default')},
     }
     ordering = ('level',)
     extra = 0
@@ -126,7 +126,7 @@ class cy_SkillAdmin(admin.ModelAdmin):
     # Link the skill levels to the skill form so they can be entered at the same time 
     inlines = [cy_LevelInline]
     formfield_overrides = {
-        models.TextField: {'widget': CKEditorWidget(config_name='advanced_setting')},
+        models.TextField: {'widget': CKEditorWidget(config_name='default')},
     }
     def save_model(self, request, obj, form, change):
         # Convert the skill code to a lowercase slug

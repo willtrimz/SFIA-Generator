@@ -120,6 +120,15 @@ USE_L10N = True
 
 USE_TZ = True
 
+# Stops the text being automatically encased in <p> tags when editing/creating an individual SFIA skill
+# Also removes toolbar formatting options toolbar from form, leaving only undo and redo button
+CKEDITOR_CONFIGS = {
+    'default': {
+        'autoParagraph': False,
+        'toolbar': [{'items':['Undo', 'Redo']}]
+    },
+}
+
 DYNAMIC_PREFERENCES = {
 
     # a python attribute that will be added to model instances with preferences
