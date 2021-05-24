@@ -49,7 +49,7 @@ def index(request):
                     return generate(request)
             else:
                 # If either skill code is invalid, inform the user of this and do not generate form
-                messages.info(request, _("Request invalid. Please check skill codes in the SFIA document"))
+                messages.info(request, _("Request invalid. Please check the SFIA skill codes to ensure the codes you entered are valid"))
                 return render(request, 'form.html')
             
         # If data was posted from the search function form.
