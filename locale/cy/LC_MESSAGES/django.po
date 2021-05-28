@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-05-05 17:54+0100\n"
+"POT-Creation-Date: 2021-05-28 11:40+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,24 +19,24 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n==1) ? 0 : (n==2) ? 1 : (n != 8 && n != "
 "11) ? 2 : 3;\n"
 
-#: .\Generator\templates\base.html:46 .\Generator\templates\base.html:48
+#: .\Generator\templates\base.html:51 .\Generator\templates\base.html:53
 #: .\Generator\templates\invalid.html:10
 msgid "SFIA Generator"
 msgstr "Generadur SFIA"
 
-#: .\Generator\templates\base.html:52
+#: .\Generator\templates\base.html:57
 msgid "Form Generator"
 msgstr "Generadur Ffurflen"
 
-#: .\Generator\templates\base.html:55
+#: .\Generator\templates\base.html:60
 msgid "Skill Search"
 msgstr "Chwiliwr Sgiliau"
 
-#: .\Generator\templates\base.html:58
+#: .\Generator\templates\base.html:63
 msgid "Browse/Select Skills"
 msgstr "Pori/Dewis sgiliau"
 
-#: .\Generator\templates\base.html:63
+#: .\Generator\templates\base.html:68
 msgid "Staff Login"
 msgstr "Mewngofnodi Staff"
 
@@ -49,7 +49,6 @@ msgid "Skill 1 Code (ex: PROD):"
 msgstr "Côd Sgil 1 (e.e. PROD)"
 
 #: .\Generator\templates\form.html:20
-#| msgid "Skill 1:"
 msgid "Skill 1 Range"
 msgstr "Ystod sgil 1"
 
@@ -66,7 +65,6 @@ msgid "(Optional)"
 msgstr "(Dewisol)"
 
 #: .\Generator\templates\form.html:29
-#| msgid "Skill 2:"
 msgid "Skill 2 Range"
 msgstr "Ystod sgil 2"
 
@@ -124,7 +122,8 @@ msgstr ""
 
 #: .\Generator\templates\search.html:19
 msgid "Unfortunately the search tool only works with English text."
-msgstr "Yn anffodus, mae’r teclyn chwilio yn gweithio gyda thestun Saesneg yn unig"
+msgstr ""
+"Yn anffodus, mae’r teclyn chwilio yn gweithio gyda thestun Saesneg yn unig"
 
 #: .\Generator\templates\search.html:21
 msgid "Please fill in this form field."
@@ -135,7 +134,6 @@ msgid "Click here to search for suitable skill"
 msgstr "Cliciwch yma i chwilio am sgiliau addas."
 
 #: .\Generator\templates\show_skill.html:18
-#| msgid "Click Here to Pre-Populate Form with only one skill"
 msgid "Click Here to Pre-Populate Form"
 msgstr "Cliciwch yma i lenwi’r ffurflen ymlaen llaw."
 
@@ -163,16 +161,31 @@ msgstr "Cliciwch yma i ddangos y rhestr o sgiliau neu ddewis sgiliau"
 msgid "Skills Information:"
 msgstr "Gwybodaeth sgiliau:"
 
-#: .\Generator\views.py:45
+#: .\Generator\views.py:42 .\Generator\views.py:46
+msgid "Invalid skill range: "
+msgstr "Ystod sgiliau annilys: "
+
+#: .\Generator\views.py:42 .\Generator\views.py:46
+msgid ". This skill only has the following levels: "
+msgstr ". Dim ond y lefelau canlynol sydd gan y sgil hwn: "
+
+#: .\Generator\views.py:52
+msgid ""
+"Request invalid. Please check the SFIA skill codes to ensure the codes you "
+"entered are valid"
+msgstr ""
+"Cais annilys. Gwiriwch godau sgiliau SFIA i sicrhau bod y "
+"codau rydych wedi'u cofnodi yn ddilys."
+
+#: .\Generator\views.py:57
 msgid ""
 "The form has been pre-populated with the search results. If no suitable "
 "skills have been found, the fields have been left blank."
 msgstr ""
-"Mae'r ffurflen wedi'i llenwi ymlaen llaw gyda'r canlyniadau chwilio. Os na ddaethpwyd "
-"o hyd i unrhyw sgiliau addas, mae’r meysydd wedi’u gadael yn wag."
+"Mae'r ffurflen wedi'i llenwi ymlaen llaw gyda'r canlyniadau chwilio. Os na "
+"ddaethpwyd o hyd i unrhyw sgiliau addas, mae’r meysydd wedi’u gadael yn wag."
 
-#: .\Generator\views.py:77
-#| msgid "has been selected as the first skill. Please select the second"
+#: .\Generator\views.py:89
 msgid " has been selected as the first skill. Please select the second."
 msgstr " wedi'i ddewis fel y sgil gyntaf. Dewiswch yr ail."
 
