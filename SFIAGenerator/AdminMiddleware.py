@@ -1,7 +1,9 @@
 from django.conf import settings
 from django.utils import translation
 
-
+# Used to ensure force the admin site to be in english
+# Implemented as admin did not need to be available in Welsh but was doing so automatically
+# Leading to mismatch of Welsh UI but English model names
 class AdminLocaleURLMiddleware:
 
     def __init__(self, get_response):

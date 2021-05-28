@@ -103,10 +103,12 @@ LANGUAGE_CODE = 'en-us'
 
 ADMIN_LANGUAGE_CODE='en'
 
+# Path for the translation files
 LOCALE_PATHS = [
     os.path.join(BASE_DIR, 'locale')
 ]
 
+# Available languages
 LANGUAGES = [
 	('en', 'English'),
 	('cy', 'Cymraeg'),

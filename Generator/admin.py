@@ -11,6 +11,7 @@ admin.site.unregister(Group)
 
 global_preferences = global_preferences_registry.manager()
 
+# Action which extracts individual skills from the skills JSON files
 def processJSON(modeladmin, request, queryset):
     for file in queryset:
         try:

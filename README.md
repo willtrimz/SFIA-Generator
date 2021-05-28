@@ -6,9 +6,6 @@ or if using Docker, you should edit the debug and secret key settings in the doc
 
 **To run without Docker:**
 
-First, clone the project onto your computer with:
-`git clone https://gitlab.cs.cf.ac.uk/c1744034/sfia-generator.git` or `git clone https://github.com/SmilingTornado/sfia_generator.git`
-
 Install pipenv:
 1. Install the pip installer
 2. From a command line interface, run `pip install pipenv`
@@ -37,11 +34,8 @@ Your server is now set up and you can access it by going to http://localhost:800
 
 **Installing Docker on Ubuntu/Debian (Easy Method):**
 
-If you haven't done it already, clone the project onto your computer with:
-`git clone https://gitlab.cs.cf.ac.uk/c1744034/sfia-generator.git` or `git clone https://github.com/SmilingTornado/sfia_generator.git`
-
 If not already in the project directory, change your directory to that of the project with:
-`cd sfia_generator`
+`cd *project_directory*`
 
 Run the docker install script with:
 `sudo bash docker-compose-install.sh`
@@ -52,11 +46,8 @@ Please refer to the documentation at https://docs.docker.com/desktop/
 
 **To run with Docker:**
 
-If you haven't done it already, clone the project onto your computer with:
-`git clone https://gitlab.cs.cf.ac.uk/c1744034/sfia-generator.git` or `git clone https://github.com/SmilingTornado/sfia_generator.git`
-
 If not already in the project directory, change your directory to that of the project with:
-`cd sfia_generator`
+`cd *project_directory*`
 
 Run the project with:
 `docker-compose up -d`
@@ -78,11 +69,23 @@ This will execute a script that will then allow you to insert the login credenti
 
 **Uploading a JSON to Skills models**
 
-Navigate to the admin panel via <url>/admin
-*  Click on 'Skills jsons'
+Navigate to the admin panel via Staff Login
+*  Click on 'SFIA JSON files (language)'
 *  Add your JSON file
 *  Tick the box next to the JSON file
 *  Select the Action 'Upload to Models'
 *  Press Go and wait for it to parse into models
 
+**Uploading Core Competencies**
 
+Navigate to the admin panel via Staff Login
+*  Click on 'Core Competencies JSON files'
+*  Add your JSON file
+
+**Uploading Docx Form Templates**
+
+Navigate to the admin panel via Staff Login
+*  Click on 'Docx Form Templates'
+*  Add your .docx Word file(s)
+
+Full details of how to use the admin site can be found in the admin user guide PDF

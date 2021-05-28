@@ -1,7 +1,7 @@
 from django.db import models
 from django.core.files.storage import FileSystemStorage
 
-# Create your models here.
+# Create your database models here.
 
 #Models for the English SFIA data
 class en_Skill(models.Model):
@@ -51,7 +51,8 @@ class cy_SkillJSON(models.Model):
         verbose_name = 'SFIA JSON file (Cymraeg)'
         verbose_name_plural = 'SFIA JSON files (Cymraeg)'
 
-
+# Allows files to be overritten when a file of the same name is uploaded
+# Used for docx templates and core competencies
 class OverwriteStorage(FileSystemStorage):
     def get_available_name(self, name, max_length=None):
         self.delete(name)
