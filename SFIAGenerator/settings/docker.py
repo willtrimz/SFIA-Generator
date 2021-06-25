@@ -1,6 +1,6 @@
 from SFIAGenerator.settings.base import *
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', '0.0.0.0', '131.251.251.51', 'https://sfia-selector.cardiff.ac.uk/']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', '0.0.0.0', '*', '131.251.251.51', 'https://sfia-selector.cardiff.ac.uk/']
 
 CSRF_TRUSTED_ORIGINS = ['131.251.251.51']
 
